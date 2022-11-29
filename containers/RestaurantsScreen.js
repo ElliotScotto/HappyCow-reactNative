@@ -1,5 +1,8 @@
 import restaurants from "../assets/data/restaurants.json";
+import { useState } from "react";
 import GenerateStars from "../components/GenerateStars";
+import GenerateDollars from "../components/GenerateDollars";
+import { Ionicons } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -7,28 +10,40 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  FlatList,
 } from "react-native";
 //
 //console.log(restaurants.length); //924
 //on affiche seulement les 50 premiers résultats avant de trouver une solution pour le chargement de toutes les photos au chargement
 export default function RestaurantsScreen() {
   return (
-    <ScrollView style={styles.mainContainerRestaurants}>
-      {restaurants.slice(0, 50).map((restaurant, index) => {
-        return (
+    <View style={styles.mainContainerRestaurants}>
+      <FlatList
+        data={restaurants}
+        keyExtractor={(item) => String(item.placeId)}
+        renderItem={({ item }) => (
           <View
-            key={index}
             flexDirection={"row"}
             style={[styles.borderStyle2, styles.restaurant]}
           >
             <View flex={1} style={[styles.borderStyle, styles.imgRestaurant]}>
-              {/* <Text>image</Text> */}
-              <Image
-                width={95}
-                height={95}
-                resizeMode={"cover"}
-                source={{ uri: restaurant.thumbnail }}
-              />
+              {item.thumbnail ? ( //TESTER l'affichage de la photo avec un "!" devant "item.thumbnail"
+                <View alignItems={"center"}>
+                  <Ionicons
+                    name="restaurant-outline"
+                    size={40}
+                    color="#7C49C7"
+                  />
+                  <Text>Image not loaded</Text>
+                </View>
+              ) : (
+                <Image
+                  width={95}
+                  height={95}
+                  resizeMode={"cover"}
+                  source={{ uri: item.thumbnail }}
+                />
+              )}
             </View>
             <View flex={3} height={"100%"} style={styles.borderStyle4}>
               <View
@@ -38,7 +53,7 @@ export default function RestaurantsScreen() {
               >
                 <View flex={0.9} borderColor={"black"} borderWidth={1}>
                   <Text numberOfLines={1} style={styles.textName}>
-                    {restaurant.name}
+                    {item.name}
                   </Text>
                 </View>
                 <View>
@@ -51,7 +66,7 @@ export default function RestaurantsScreen() {
                 style={[styles.borderStyle, styles.ratingAndDistance]}
               >
                 <View alignItems={"center"}>
-                  <Text>{GenerateStars(restaurant.rating)}</Text>
+                  <Text>{GenerateStars(item.rating)}</Text>
                 </View>
                 <View>
                   <Text>Distance</Text>
@@ -66,20 +81,20 @@ export default function RestaurantsScreen() {
                   <Text>Horaires </Text>
                 </View>
                 <View>
-                  <Text>Prix</Text>
+                  <Text>{GenerateDollars(item.price)}</Text>
                 </View>
               </View>
               <View
                 flex={1.3}
                 style={[styles.borderStyle, styles.descriptionRestaurant]}
               >
-                <Text numberOfLines={2}>{restaurant.description}</Text>
+                <Text numberOfLines={2}>{item.description}</Text>
               </View>
             </View>
           </View>
-        );
-      })}
-    </ScrollView>
+        )}
+      />
+    </View>
   );
 }
 //
