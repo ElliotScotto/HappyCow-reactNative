@@ -1,4 +1,6 @@
 import { StatusBar } from "expo-status-bar";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 //Navigation
 import {
@@ -22,8 +24,36 @@ import MapScreen from "./containers/MapScreen";
 import RestaurantsScreen from "./containers/RestaurantsScreen";
 import SignupScreen from "./containers/SignupScreen";
 //
+//import Components
+import Header from "./components/Header";
+//
 //
 export default function App() {
+  const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState(null);
+  //
+  const setToken = async (token) => {
+    if (token) {
+      await AsyncStorage.setItem("userToken", token);
+      setUserToken(token);
+    } else {
+      await AsyncStorage.removeItem("userToken");
+      setUserToken(null);
+    }
+    setUserToken(token);
+  };
+
+  const setId = async (id) => {
+    if (id) {
+      await AsyncStorage.setItem("userId", id);
+      setUserId(id);
+    } else {
+      await AsyncStorage.removeItem("userId");
+      setUserId(null);
+    }
+    setUserId(id);
+  };
+  //
   return (
     <NavigationContainer>
       {/* <Stack.Navigator initialRouteName="Splash"> */}
@@ -32,6 +62,7 @@ export default function App() {
           component={SplashScreen}
           options={{ title: "" }}
         /> */}
+
       <Tab.Navigator
         screenOptions={({ route }) => ({
           // headerShown: false, //RETIRE LE HEADER
@@ -65,27 +96,31 @@ export default function App() {
                 name="Restaurants"
                 component={RestaurantsScreen}
                 options={{
-                  headerStyle: { backgroundColor: "#7C49C7" },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: { fontWeight: "bold" },
+                  headerTitleAlign: "center",
+                  headerTitle: () => <Header name="HappyCowLogo" />,
+                  headerStyle: {
+                    backgroundColor: "#7C49C7",
+                  },
                 }}
               />
               <Stack.Screen
                 name="Restaurant"
                 component={RestaurantScreen}
                 options={{
-                  headerStyle: { backgroundColor: "#7C49C7" },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: { fontWeight: "bold" },
+                  headerShown: false,
+
+                  // headerTitleAlign: "center",
+                  // headerTitle: () => <Header name="HappyCowLogo" />,
+                  // headerStyle: { backgroundColor: "#7C49C7" },
                 }}
               />
               <Stack.Screen
                 name="Map"
                 component={MapScreen}
                 options={{
+                  headerTitleAlign: "center",
+                  headerTitle: () => <Header name="HappyCowLogo" />,
                   headerStyle: { backgroundColor: "#7C49C7" },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: { fontWeight: "bold" },
                 }}
               />
             </Stack.Navigator>
@@ -107,30 +142,34 @@ export default function App() {
                 name="Favoris"
                 component={FavoritesScreen}
                 options={{
+                  headerTitleAlign: "center",
+                  headerTitle: () => <Header name="HappyCowLogo" />,
                   headerStyle: { backgroundColor: "#7C49C7" },
-                  headerTintColor: "#fff",
-                  headerTitleStyle: { fontWeight: "bold" },
                 }}
               />
               <Stack.Screen
                 name="SignUp"
-                component={SignupScreen}
                 options={{
                   tabBarLabel: "Sign Up",
+                  headerTitleAlign: "center",
                   headerStyle: { backgroundColor: "#7C49C7" },
                   headerTintColor: "#fff",
                   headerTitleStyle: { fontWeight: "bold" },
                 }}
-              />
+              >
+                {() => <SignupScreen setToken={setToken} setId={setId} />}
+              </Stack.Screen>
               <Stack.Screen
                 name="Login"
-                component={LoginScreen}
                 options={{
+                  headerTitleAlign: "center",
                   headerStyle: { backgroundColor: "#7C49C7" },
                   headerTintColor: "#fff",
                   headerTitleStyle: { fontWeight: "bold" },
                 }}
-              />
+              >
+                {() => <LoginScreen setToken={setToken} setId={setId} />}
+              </Stack.Screen>
             </Stack.Navigator>
           )}
         </Tab.Screen>

@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/core";
 import {
   Text,
@@ -5,12 +6,19 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  StatusBar,
 } from "react-native";
-
+//
+function FocusAwareStatusBar(props) {
+  const isFocused = useIsFocused();
+  return isFocused ? <StatusBar {...props} /> : null;
+}
+//
 export default function FavoritesScreen() {
   const navigation = useNavigation();
   return (
     <View style={styles.mainContainerFavorites}>
+      <FocusAwareStatusBar barStyle="light-content" backgroundColor="#533382" />
       <View style={styles.welcomeSlide}>
         <Text>Slideshow</Text>
       </View>
