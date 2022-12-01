@@ -48,7 +48,7 @@ export default function RestaurantsScreen() {
 
       <FlatList
         data={restaurants}
-        keyExtractor={(item) => String(item.placeId)}
+        keyExtractor={(item, index) => String(index)}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -70,14 +70,12 @@ export default function RestaurantsScreen() {
               }}
             >
               <View
-                key={item.placeId}
                 flexDirection={"row"}
                 style={[styles.borderStyle2, styles.restaurant]}
               >
                 <View
                   flex={1}
                   style={[styles.borderStyle, styles.imgRestaurant]}
-                  key={item.thumbnail}
                 >
                   {!item.thumbnail ||
                   item.thumbnail ===
@@ -106,13 +104,13 @@ export default function RestaurantsScreen() {
                     flexDirection={"row"}
                     style={[styles.borderStyle, styles.titleAndType]}
                   >
-                    <View flex={0.65} key={item.name}>
+                    <View flex={0.65}>
                       <Text numberOfLines={1} style={styles.textName}>
                         {item.name}
                       </Text>
                     </View>
 
-                    <View alignItems={"center"} flex={0.35} key={item.type}>
+                    <View alignItems={"center"} flex={0.35}>
                       {/* {console.log(item.type)} */}
                       <Text>{item.type}</Text>
                     </View>
@@ -122,10 +120,10 @@ export default function RestaurantsScreen() {
                     flexDirection={"row"}
                     style={[styles.borderStyle, styles.ratingAndDistance]}
                   >
-                    <View alignItems={"center"} key={item.rating}>
+                    <View alignItems={"center"}>
                       <Text>{GenerateStars(item.rating)}</Text>
                     </View>
-                    <View key={item.location}>
+                    <View>
                       <Text>Distance</Text>
                     </View>
                   </View>
@@ -134,21 +132,16 @@ export default function RestaurantsScreen() {
                     flexDirection={"row"}
                     style={[styles.borderStyle, styles.schedulesAndPrice]}
                   >
-                    <View
-                      flex={0.7}
-                      style={styles.schedulesStyle}
-                      key={item.nearbyPlacesIds}
-                    >
+                    <View flex={0.7} style={styles.schedulesStyle}>
                       <Text numberOfLines={1}>Horaires</Text>
                     </View>
-                    <View flex={0.3} style={styles.priceStyle} key={item.price}>
+                    <View flex={0.3} style={styles.priceStyle}>
                       <Text>{GenerateDollars(item.price)}</Text>
                     </View>
                   </View>
                   <View
                     flex={1.3}
                     style={[styles.borderStyle, styles.descriptionRestaurant]}
-                    key={item.description}
                   >
                     <Text numberOfLines={2}>{item.description}</Text>
                   </View>
