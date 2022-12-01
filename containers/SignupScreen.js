@@ -12,7 +12,7 @@ import {
   Dimensions,
   TouchableHighlight,
 } from "react-native";
-import { CheckBox } from "@react-native-community/checkbox";
+import Checkbox from "expo-checkbox";
 import { useState } from "react";
 //
 function FocusAwareStatusBar(props) {
@@ -166,16 +166,29 @@ export default function SignupScreen({ setToken, setId }) {
           }}
           value={birthYear}
         />
-        {/* <CheckBox
-          style={styles.customInputSignIn}
-          value={newsletter}
-          onValueChange={setNewsletter}
-        />
-        <CheckBox
-          style={styles.customInputSignIn}
-          value={conditions}
-          onValueChange={setConditions}
-        /> */}
+        <View style={styles.section}>
+          <Checkbox
+            // style={styles.customInputSignIn}
+            value={newsletter}
+            onValueChange={setNewsletter}
+          />
+          <Text style={styles.paragraph}>
+            Recevez des mises à jour sur les nouvelles ouvertures, les produits
+            végétaliens et les promotions locales près de chez vous.
+          </Text>
+        </View>
+        <View style={styles.section}>
+          <Checkbox
+            // style={styles.customInputSignIn}
+            value={conditions}
+            onValueChange={setConditions}
+          />
+          <Text style={styles.paragraph}>
+            J'accepte les conditions d'utilisation, la politique de
+            confidentialté et les paramètres de notification par défaut. J'ai
+            plus de 13 ans.*
+          </Text>
+        </View>
         <Text style={styles.ErrorMessageStyle}>{errorMessage}</Text>
         <TouchableHighlight
           style={styles.button}
@@ -210,6 +223,18 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     marginBottom: 20,
+  },
+  section: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "90%",
+    marginBottom: 20,
+    fontSize: 18,
+  },
+  paragraph: {
+    marginHorizontal: 10,
+    fontSize: 15,
+    color: "#7C49C7",
   },
   text: {
     color: "#717171",

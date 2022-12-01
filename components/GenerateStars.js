@@ -6,7 +6,9 @@ const GenerateStars = (ratingValue) => {
 
   // if (ratingValue === NumTronc) {
   for (let i = 0; i < ratingValue; i++) {
-    starsArray.push(<FontAwesome name="star" size={16} color="#DAA520" />);
+    starsArray.push(
+      <FontAwesome name="star" size={16} color="#DAA520" key={i} />
+    );
   }
   // }
 

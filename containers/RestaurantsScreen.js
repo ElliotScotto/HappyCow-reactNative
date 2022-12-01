@@ -48,7 +48,7 @@ export default function RestaurantsScreen() {
 
       <FlatList
         data={restaurants}
-        keyExtractor={(item, index) => String(index)}
+        keyExtractor={(item) => String(item.placeId)}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -63,8 +63,8 @@ export default function RestaurantsScreen() {
                   rating: item.rating,
                   pictures: item.pictures,
                   description: item.description,
-                  latitude: item.location[1],
-                  longitude: item.location[0],
+                  latitude: item.location.lat,
+                  longitude: item.location.lng,
                   website: item.website,
                 });
               }}
