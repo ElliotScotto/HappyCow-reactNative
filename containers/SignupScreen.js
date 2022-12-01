@@ -3,6 +3,11 @@ import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/core";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Feather } from "@expo/vector-icons";
+//import Modals
+import VegeType from "../modals/VegeType";
+import CityUser from "../modals/CityUser";
+import BirthYear from "../modals/BirthYear";
+//
 import {
   Text,
   TextInput,
@@ -19,6 +24,8 @@ function FocusAwareStatusBar(props) {
   const isFocused = useIsFocused();
   return isFocused ? <StatusBar {...props} /> : null;
 }
+//
+
 //
 const heightScreen = Dimensions.get("window").height;
 const widthScreen = Dimensions.get("window").width;
@@ -37,7 +44,6 @@ export default function SignupScreen({ setToken, setId }) {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   //
   const navigation = useNavigation();
-  //
   //
   const handlePress = async (event) => {
     event.preventDefault();
@@ -131,41 +137,68 @@ export default function SignupScreen({ setToken, setId }) {
             >
               {secureTextEntry ? (
                 <Text>
-                  <Feather name="eye-off" size={24} color="#533382" />
+                  <Feather name="eye-off" size={20} color="#533382" />
                 </Text>
               ) : (
                 <Text>
-                  <Feather name="eye" size={24} color="#533382" />
+                  <Feather name="eye" size={20} color="#533382" />
                 </Text>
               )}
             </TouchableOpacity>
           </View>
         </View>
-        <TextInput
-          style={styles.customInputSignIn}
-          placeholder="Type de végé"
-          onChangeText={(vegeType) => {
-            setVegeType(vegeType);
-          }}
-          value={vegeType}
-        />
-        <TextInput
-          style={styles.customInputSignIn}
-          placeholder="Ville d'origine"
-          onChangeText={(userCity) => {
-            setUserCity(userCity);
-          }}
-          value={userCity}
-        />
-        <TextInput
-          style={styles.customInputSignIn}
-          placeholder="Année de naissance Ex: 1989"
-          autoComplete="birthdate-year"
-          onChangeText={(birthYear) => {
-            setBirthYear(birthYear);
-          }}
-          value={birthYear}
-        />
+        <View
+          style={{ width: "90%", position: "relative", flexDirection: "row" }}
+        >
+          <View style={{ flex: 1 }}>
+            <TextInput
+              style={styles.customInputSignIn}
+              placeholder="Type de végé"
+              onChangeText={(vegeType) => {
+                setVegeType(vegeType);
+              }}
+              value={vegeType}
+            />
+          </View>
+          <View style={{ position: "absolute", top: 10, right: 10 }}>
+            <VegeType />
+          </View>
+        </View>
+        <View
+          style={{ width: "90%", position: "relative", flexDirection: "row" }}
+        >
+          <View style={{ flex: 1 }}>
+            <TextInput
+              style={styles.customInputSignIn}
+              placeholder="Ville d'origine"
+              onChangeText={(userCity) => {
+                setUserCity(userCity);
+              }}
+              value={userCity}
+            />
+          </View>
+          <View style={{ position: "absolute", top: 10, right: 10 }}>
+            <CityUser />
+          </View>
+        </View>
+        <View
+          style={{ width: "90%", position: "relative", flexDirection: "row" }}
+        >
+          <View style={{ flex: 1 }}>
+            <TextInput
+              style={styles.customInputSignIn}
+              placeholder="Année de naissance Ex: 1989"
+              autoComplete="birthdate-year"
+              onChangeText={(birthYear) => {
+                setBirthYear(birthYear);
+              }}
+              value={birthYear}
+            />
+          </View>
+          <View style={{ position: "absolute", top: 10, right: 10 }}>
+            <BirthYear />
+          </View>
+        </View>
         <View style={styles.section}>
           <Checkbox
             // style={styles.customInputSignIn}
@@ -234,7 +267,7 @@ const styles = StyleSheet.create({
   paragraph: {
     marginHorizontal: 10,
     fontSize: 15,
-    color: "#7C49C7",
+    color: "#533382",
   },
   text: {
     color: "#717171",

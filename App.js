@@ -31,6 +31,7 @@ import Header from "./components/Header";
 export default function App() {
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserId] = useState(null);
+
   //
   const setToken = async (token) => {
     if (token) {
@@ -159,6 +160,7 @@ export default function App() {
               >
                 {() => <SignupScreen setToken={setToken} setId={setId} />}
               </Stack.Screen>
+
               <Stack.Screen
                 name="Login"
                 options={{
