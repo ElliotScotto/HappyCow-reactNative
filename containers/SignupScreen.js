@@ -56,7 +56,9 @@ export default function SignupScreen({ setToken, setId }) {
       !birthYear
     ) {
       setErrorMessage("Veuillez remplir tous les champs.");
-    } else if (password.length <= 6) {
+    } else if (conditions === false) {
+      setErrorMessage("Veuillez accepter les conditions en cochant la case");
+    } else if (password.length < 6) {
       setErrorMessage("Votre mot de passe doit contenir 6 caractères minimum");
     } else if (birthYear.length !== 4 || birthYear > 2022 || birthYear < 1900) {
       setErrorMessage("L'année de naissance n'est pas valide");
@@ -123,7 +125,7 @@ export default function SignupScreen({ setToken, setId }) {
               value={password}
             />
           </View>
-          <View style={{ position: "absolute", right: 30 }}>
+          <View style={{ position: "absolute", top: 10, right: 30 }}>
             <TouchableOpacity
               style={styles.eyeIcon}
               onPress={() => {
@@ -228,7 +230,7 @@ export default function SignupScreen({ setToken, setId }) {
           title="Sign up"
           onPress={handlePress}
         >
-          <Text style={[styles.grey, styles.large]}>S'inscrire</Text>
+          <Text style={[styles.large, styles.fontColor]}>S'inscrire</Text>
         </TouchableHighlight>
       </View>
     </KeyboardAwareScrollView>
@@ -253,6 +255,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderColor: "#717171",
+    backgroundColor: "#717171",
     borderWidth: 3,
     borderRadius: 10,
     marginBottom: 20,
@@ -274,6 +277,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 18,
   },
+  fontColor: { color: "white" },
   grey: { color: "#717171" },
   large: { fontSize: 18 },
   ErrorMessageStyle: { marginTop: 10, color: "red", marginBottom: 15 },

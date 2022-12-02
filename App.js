@@ -11,8 +11,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
+import { TouchableOpacity } from "react-native";
 //icons TabBarBottom
-import { Feather } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 //imports
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //import Sreens
@@ -109,10 +110,6 @@ export default function App() {
                 component={RestaurantScreen}
                 options={{
                   headerShown: false,
-
-                  // headerTitleAlign: "center",
-                  // headerTitle: () => <Header name="HappyCowLogo" />,
-                  // headerStyle: { backgroundColor: "#7C49C7" },
                 }}
               />
               <Stack.Screen
@@ -122,6 +119,7 @@ export default function App() {
                   headerTitleAlign: "center",
                   headerTitle: () => <Header name="HappyCowLogo" />,
                   headerStyle: { backgroundColor: "#7C49C7" },
+                  headerTintColor: "#fff",
                 }}
               />
             </Stack.Navigator>

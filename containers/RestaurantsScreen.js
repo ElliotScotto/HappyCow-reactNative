@@ -1,10 +1,12 @@
 import restaurants from "../assets/data/restaurants.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { useIsFocused } from "@react-navigation/native";
+import axios from "axios";
 //Components
 import GenerateStars from "../components/GenerateStars";
 import GenerateDollars from "../components/GenerateDollars";
+import SearchBar from "../components/SearchBar";
 // import DateNow from "../components/DateNow";
 // import Schedules from "../components/Schedules";
 // import * as Location from "expo-location";
@@ -21,15 +23,8 @@ import {
   Platform,
   StatusBar,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-//
-//ZONE TEST
-// let hourDayUTC = new Date().getUTCHours();
-//console.log("DateNow() de Restaurants ICI ===>", DateNow(1));
-//
-//
-//console.log(restaurants.length); //924
-// console.log(restaurants[0].thumbnail);
 //
 function FocusAwareStatusBar(props) {
   const isFocused = useIsFocused();
@@ -39,13 +34,150 @@ function FocusAwareStatusBar(props) {
 export default function RestaurantsScreen() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [searchText, setSearchText] = useState("");
+  const [restaurantFiltered, setRestaurantFiltered] = useState([]);
+  //
+  // REQUETE EN COURS DE DEV !!!!!!!!!!!!!!!!!!!!!
+  const searchRestaurants = () => {
+    try {
+      const response = axios.get(
+        "https://res.cloudinary.com/lereacteur-apollo/raw/upload/v1575242111/10w-full-stack/Scraping/restaurants.json",
+        { params: { query: searchText } }
+      );
+      console.log("response=>>>");
+      setRestaurantFiltered(response.data.restaurantFiltered);
+    } catch (error) {
+      console.log("ERREUR DE LA REQUETE AXIOS ===>", error);
+    }
+  };
+  //
+  //
+  //Header go to MapScreen
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate("Map")}>
+          <Ionicons name="map-sharp" size={24} color="white" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
   //
   //
   return (
     <View style={styles.mainContainerRestaurants}>
       <FocusAwareStatusBar barStyle="light-content" backgroundColor="#533382" />
+      <SearchBar
+        searchText={searchText}
+        setSearchText={setSearchText}
+        onSubmit={searchRestaurants}
+      />
+      <View>
+        <FlatList
+          data={restaurants}
+          keyExtractor={(item) => String(item.placeId)}
+          renderItem={({ item }) => {
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Restaurant", {
+                  id: item.placeId,
+                  name: item.name,
+                  address: item.address,
+                  phone: item.phone,
+                  type: item.type,
+                  price: item.price,
+                  rating: item.rating,
+                  pictures: item.pictures,
+                  description: item.description,
+                  latitude: item.location.lat,
+                  longitude: item.location.lng,
+                  website: item.website,
+                });
+              }}
+            >
+              <View
+                flexDirection={"row"}
+                style={[styles.borderStyle2, styles.restaurant]}
+              >
+                <View
+                  flex={1}
+                  style={[styles.borderStyle, styles.imgRestaurant]}
+                >
+                  {!item.thumbnail ||
+                  item.thumbnail ===
+                    "https://www.happycow.net/img/no-image.jpg" ? (
+                    <View alignItems={"center"}>
+                      <Ionicons
+                        name="restaurant-outline"
+                        size={40}
+                        color="#7C49C7"
+                      />
+                      <Text>No Image</Text>
+                    </View>
+                  ) : (
+                    <View>
+                      <Image
+                        style={styles.imgResto}
+                        resizeMode={"cover"}
+                        source={{ uri: item.thumbnail }}
+                      />
+                    </View>
+                  )}
+                </View>
+                <View flex={3} height={"100%"} style={styles.borderStyle4}>
+                  <View
+                    flex={0.8}
+                    flexDirection={"row"}
+                    style={[styles.borderStyle, styles.titleAndType]}
+                  >
+                    <View flex={0.65}>
+                      <Text numberOfLines={1} style={styles.textName}>
+                        {item.name}
+                      </Text>
+                    </View>
 
+                    <View alignItems={"center"} flex={0.35}>
+                      <Text>{item.type}</Text>
+                    </View>
+                  </View>
+                  <View
+                    flex={0.6}
+                    flexDirection={"row"}
+                    style={[styles.borderStyle, styles.ratingAndDistance]}
+                  >
+                    <View alignItems={"center"}>
+                      <Text>{GenerateStars(item.rating)}</Text>
+                    </View>
+                    <View>
+                      <Text>Distance</Text>
+                    </View>
+                  </View>
+                  <View
+                    flex={0.7}
+                    flexDirection={"row"}
+                    style={[styles.borderStyle, styles.schedulesAndPrice]}
+                  >
+                    <View flex={0.7} style={styles.schedulesStyle}>
+                      <Text numberOfLines={1}>Horaires</Text>
+                    </View>
+                    <View flex={0.3} style={styles.priceStyle}>
+                      <Text>{GenerateDollars(item.price)}</Text>
+                    </View>
+                  </View>
+                  <View
+                    flex={1.3}
+                    style={[styles.borderStyle, styles.descriptionRestaurant]}
+                  >
+                    <Text numberOfLines={2}>{item.description}</Text>
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>;
+          }}
+        />
+      </View>
+
+      {/* FLATLIST PAR DEFAUT SANS FILTRES */}
       <FlatList
         data={restaurants}
         keyExtractor={(item) => String(item.placeId)}
@@ -111,7 +243,6 @@ export default function RestaurantsScreen() {
                     </View>
 
                     <View alignItems={"center"} flex={0.35}>
-                      {/* {console.log(item.type)} */}
                       <Text>{item.type}</Text>
                     </View>
                   </View>
@@ -157,10 +288,12 @@ export default function RestaurantsScreen() {
 //
 const heightScreen = Dimensions.get("window").height;
 const widthScreen = Dimensions.get("window").width;
+//
 const styles = StyleSheet.create({
   mainContainerRestaurants: {
     width: widthScreen,
   },
+
   restaurant: {
     height: heightScreen / 7, //on veut afficher 7 annonces par page avant de scroller, (6 en comptant la map)
     // borderColor: "black",

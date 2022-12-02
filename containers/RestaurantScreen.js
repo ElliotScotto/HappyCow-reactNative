@@ -4,7 +4,13 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { useState, useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/core";
-import { Ionicons, Feather, FontAwesome5 } from "@expo/vector-icons";
+import {
+  Ionicons,
+  Feather,
+  FontAwesome5,
+  MaterialCommunityIcons,
+  Entypo,
+} from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -52,12 +58,14 @@ export default function RestaurantScreen({ route }) {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
         let location = await Location.getCurrentPositionAsync({});
-        //console.log("location =>", location); // console.log permettant de visualiser l'objet obtenu
+        // console.log("CONSOLE.LOG de location ===>  ", location);
         const obj = {
-          latitude: location.latitude,
-          longitude: location.longitude,
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
         };
         setCoords(obj);
+        // console.log("CONSOLE.LOG de obj ===>  ", obj);
+        // console.log("CONSOLE.LOG de latitude ===>  ", latitude);
         setIsLoading(false);
       } else {
         setError(true);
@@ -71,18 +79,6 @@ export default function RestaurantScreen({ route }) {
     const isFocused = useIsFocused();
     return isFocused ? <StatusBar {...props} hidden={false} /> : null;
   }
-  //
-  //
-  const markers = [
-    {
-      id: 1,
-      latitude: 48.8564449,
-      longitude: 2.4002913,
-      title: "Le Reacteur",
-      description: "La formation des champion·ne·s !",
-    },
-  ];
-  //
   //
   return isLoading ? ( // step 1
     <Text>Chargement...</Text> // step 2
@@ -105,7 +101,7 @@ export default function RestaurantScreen({ route }) {
             backgroundColor="#533382"
           />
         ) : (
-          <FocusAwareStatusBar barStyle="dark-content" />
+          <FocusAwareStatusBar barStyle="default" />
         )}
 
         <View
@@ -138,6 +134,90 @@ export default function RestaurantScreen({ route }) {
         </View>
         <View
           style={{
+            width: widthScreen,
+            height: heightScreen * 0.15,
+            borderColor: "black",
+            borderWidth: 1,
+            paddingHorizontal: 10,
+          }}
+        >
+          <View
+            style={{
+              height: 36,
+              borderColor: "black",
+              borderWidth: 1,
+              justifyContent: "center",
+            }}
+          >
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: 20,
+                fontWeight: "500",
+                borderColor: "black",
+                borderWidth: 1,
+                width: widthScreen * 0.65,
+              }}
+            >
+              {name}
+            </Text>
+          </View>
+          <View
+            style={{
+              height: 28,
+              borderColor: "black",
+              borderWidth: 1,
+              justifyContent: "center",
+            }}
+          >
+            <Text>{GenerateStars(rating)}</Text>
+          </View>
+
+          <View
+            style={{
+              height: 28,
+              flexDirection: "row",
+              borderColor: "black",
+              borderWidth: 1,
+            }}
+          >
+            <View
+              style={{
+                flex: 0.6,
+                borderColor: "black",
+                borderWidth: 1,
+                justifyContent: "center",
+              }}
+            >
+              <Text numberOfLines={1} style={{ color: "grey" }}>
+                OUVERTURE
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 0.2,
+                borderColor: "black",
+                borderWidth: 1,
+                justifyContent: "center",
+              }}
+            >
+              <Text>Distance</Text>
+            </View>
+            <View
+              style={{
+                flex: 0.2,
+                borderColor: "black",
+                borderWidth: 1,
+                justifyContent: "center",
+              }}
+            >
+              <Text>{GenerateDollars(price)}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View
+          style={{
             paddingHorizontal: 10,
             alignItems: "center",
             justifyContent: "center",
@@ -145,12 +225,9 @@ export default function RestaurantScreen({ route }) {
             height: heightScreen * 0.4,
           }}
         >
-          <Text>{name}</Text>
-          <Text>{type}</Text>
-          <Text>{GenerateStars(rating)}</Text>
-          <Text>{GenerateDollars(price)}</Text>
           <Text>{description}</Text>
         </View>
+
         <View
           style={{
             alignItems: "center",
@@ -164,7 +241,9 @@ export default function RestaurantScreen({ route }) {
         >
           <TouchableOpacity style={styles.shareLink}>
             <View style={styles.iconShareLink}>
-              <Text>Icone</Text>
+              <Text>
+                <Feather name="link" size={24} color="#533382" />
+              </Text>
             </View>
             <View style={styles.nameShareLink}>
               <Text style={styles.textShareLink}>Site web</Text>
@@ -172,7 +251,9 @@ export default function RestaurantScreen({ route }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.shareLink}>
             <View style={styles.iconShareLink}>
-              <Text>Icone</Text>
+              <Text>
+                <FontAwesome5 name="pen" size={24} color="#533382" />
+              </Text>
             </View>
             <View style={styles.nameShareLink}>
               <Text style={styles.textShareLink}>Ajouter un avis</Text>
@@ -180,7 +261,13 @@ export default function RestaurantScreen({ route }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.shareLink}>
             <View style={styles.iconShareLink}>
-              <Text>Icone</Text>
+              <Text>
+                <MaterialCommunityIcons
+                  name="camera-plus"
+                  size={28}
+                  color="#533382"
+                />
+              </Text>
             </View>
             <View style={styles.nameShareLink}>
               <Text style={styles.textShareLink}>Ajouter une photo</Text>
@@ -188,7 +275,9 @@ export default function RestaurantScreen({ route }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.shareLink}>
             <View style={styles.iconShareLink}>
-              <Text>Icone</Text>
+              <Text>
+                <Entypo name="share" size={24} color="#533382" />
+              </Text>
             </View>
             <View style={styles.nameShareLink}>
               <Text style={styles.textShareLink}>Partager</Text>
@@ -202,8 +291,8 @@ export default function RestaurantScreen({ route }) {
             initialRegion={{
               latitude: 48.856614,
               longitude: 2.3522219,
-              latitudeDelta: 0.3,
-              longitudeDelta: 0.3,
+              latitudeDelta: 0.03,
+              longitudeDelta: 0.03,
             }}
             showsUserLocation={true}
             provider={PROVIDER_GOOGLE}
@@ -229,7 +318,7 @@ export default function RestaurantScreen({ route }) {
           <View style={styles.allContacts}>
             <View style={styles.contact}>
               <View style={styles.iconContact}>
-                <Feather name="clock" size={24} color="#533382" />
+                <Feather name="clock" size={20} color="#533382" />
               </View>
               <View style={styles.contactInfo}>
                 <Text>Heures d'ouverture</Text>
@@ -237,7 +326,7 @@ export default function RestaurantScreen({ route }) {
             </View>
             <View style={styles.contact}>
               <View style={styles.iconContact}>
-                <Feather name="phone" size={24} color="#533382" />
+                <Feather name="phone" size={20} color="#533382" />
               </View>
               <View style={styles.contactInfo}>
                 <Text>Appeler {phone}</Text>
@@ -245,7 +334,7 @@ export default function RestaurantScreen({ route }) {
             </View>
             <View style={styles.contact}>
               <View style={styles.iconContact}>
-                <Feather name="link" size={24} color="#533382" />
+                <Feather name="link" size={20} color="#533382" />
               </View>
               <View style={styles.contactInfo}>
                 <Text>Site web</Text>
@@ -253,7 +342,7 @@ export default function RestaurantScreen({ route }) {
             </View>
             <View style={styles.contact}>
               <View style={styles.iconContact}>
-                <FontAwesome5 name="facebook" size={24} color="#533382" />
+                <FontAwesome5 name="facebook" size={20} color="#533382" />
               </View>
               <View style={styles.contactInfo}>
                 <Text>Facebook</Text>
@@ -261,7 +350,7 @@ export default function RestaurantScreen({ route }) {
             </View>
             <View style={styles.contact}>
               <View style={styles.iconContact}>
-                <FontAwesome5 name="instagram" size={24} color="#533382" />
+                <FontAwesome5 name="instagram" size={20} color="#533382" />
               </View>
               <View style={styles.contactInfo}>
                 <Text>Instagram</Text>
@@ -269,7 +358,7 @@ export default function RestaurantScreen({ route }) {
             </View>
             <View style={styles.contact}>
               <View style={styles.iconContact}>
-                <Ionicons name="trail-sign-outline" size={24} color="#533382" />
+                <Ionicons name="trail-sign-outline" size={20} color="#533382" />
               </View>
               <View style={styles.contactInfo}>
                 <Text>Itinéraire</Text>
@@ -289,23 +378,28 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   shareLink: {
-    borderColor: "purple",
-    borderWidth: 1,
     alignItems: "center",
     height: 100,
     width: 70,
-    justifyContent: "space-between",
   },
   iconShareLink: {
-    borderColor: "blue",
-    borderWidth: 1,
     width: 50,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#E6E6FA",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
   },
-  nameShareLink: {},
-  textShareLink: { fontSize: 14, color: "grey" },
+  nameShareLink: { marginTop: 10 },
+  textShareLink: {
+    fontSize: 14,
+    color: "grey",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
   map: {
     marginTop: 20,
     height: heightScreen * 0.25,
@@ -333,7 +427,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     width: 50,
     height: 50,
-    marginRight: 15,
+    marginRight: 5,
     alignItems: "center",
     justifyContent: "center",
   },
