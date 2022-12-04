@@ -25,6 +25,7 @@ import {
 //Components
 import GenerateStars from "../components/GenerateStars";
 import Schedules from "../components/Schedules";
+import OnlyDescription from "../components/OnlyDescription";
 import MainContacts from "../components/MainContacts";
 import LastContacts from "../components/LastContacts";
 //
@@ -576,9 +577,15 @@ export default function RestaurantScreen({ route, navigation }) {
             width: widthScreen,
           }}
         >
-          <Text style={{ fontSize: 16, fontWeight: "500", lineHeight: 24 }}>
-            {description}
-          </Text>
+          {description !== "null" ? (
+            <Text style={{ fontSize: 16, fontWeight: "500", lineHeight: 24 }}>
+              {OnlyDescription(description)}
+            </Text>
+          ) : (
+            <Text style={{ fontSize: 16, fontWeight: "500", lineHeight: 24 }}>
+              Cet établissement ne possède pas de description.
+            </Text>
+          )}
         </View>
         <View
           style={{

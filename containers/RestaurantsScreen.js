@@ -65,6 +65,17 @@ export default function RestaurantsScreen() {
     });
   }, [navigation]);
   //
+  //Display Schedules
+  // const tabSchedules = [];
+  // const descriptionToArray = restaurants.description;
+  // const tab2 = descriptionToArray.split(" ");
+  // const open = tab2.findIndex((element) => element === "Open");
+  // const closed = tab2.findIndex((element) => element === "Closed");
+  // const OpeningDays = open + 1;
+  // const openTab1 = tab2.slice(OpeningDays, closed);
+  // const newTab = openTab1.join(" ");
+  //
+
   //
   return (
     <View style={styles.mainContainerRestaurants}>
@@ -79,7 +90,7 @@ export default function RestaurantsScreen() {
       <FlatList
         data={restaurants}
         keyExtractor={(item) => String(item.placeId)}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
               onPress={() => {
@@ -253,9 +264,11 @@ export default function RestaurantsScreen() {
                   >
                     <View flex={0.7} style={styles.schedulesStyle}>
                       {item.description ? (
-                        <Text>Component à créer</Text>
+                        <Text numberOfLines={1}>
+                          {Schedules(restaurants[index].description)}
+                        </Text>
                       ) : (
-                        <Text numberOfLines={1}>Horaires</Text>
+                        <Text numberOfLines={1}>Horaires inconnus</Text>
                       )}
                     </View>
                     <View flex={0.3} style={styles.priceStyle}>
@@ -266,7 +279,13 @@ export default function RestaurantsScreen() {
                     flex={1.3}
                     style={[styles.borderStyle, styles.descriptionRestaurant]}
                   >
-                    <Text numberOfLines={2}>{item.description}</Text>
+                    {item.description ? (
+                      <Text numberOfLines={2}>{item.description}</Text>
+                    ) : (
+                      <Text numberOfLines={2}>
+                        Cet établissement ne possède pas de description.
+                      </Text>
+                    )}
                   </View>
                 </View>
               </View>
@@ -354,7 +373,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   priceStyle: {
-    // borderColor: "black", borderWidth: 1,
+    // borderColor: "black",
+    // borderWidth: 1,
     alignItems: "center",
   },
   descriptionRestaurant: {
