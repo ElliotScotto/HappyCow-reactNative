@@ -3,6 +3,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 //Navigation
+
 import {
   getFocusedRouteNameFromRoute,
   NavigationContainer,
@@ -109,8 +110,14 @@ export default function App() {
                 name="Restaurant"
                 component={RestaurantScreen}
                 options={{
-                  headerShown: false,
+                  headerStyle: {
+                    backgroundColor: "",
+                  },
+                  headerBackTitleVisible: "false",
+                  // headerTitle: "Restaurants",
+                  headerTitle: "",
                 }}
+                screenOptions={{}}
               />
               <Stack.Screen
                 name="Map"
