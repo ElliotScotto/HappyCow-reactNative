@@ -7,6 +7,7 @@ import axios from "axios";
 import GenerateStars from "../components/GenerateStars";
 import GenerateDollars from "../components/GenerateDollars";
 import SearchBar from "../components/SearchBar";
+import Schedules from "../components/Schedules";
 // import DateNow from "../components/DateNow";
 // import Schedules from "../components/Schedules";
 import IconType from "../components/IconType";
@@ -23,6 +24,7 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 //
 function FocusAwareStatusBar(props) {
@@ -37,13 +39,14 @@ export default function RestaurantsScreen() {
   const [restaurantFiltered, setRestaurantFiltered] = useState([]);
   //
   // REQUETE EN COURS DE DEV !!!!!!!!!!!!!!!!!!!!!
-  const searchRestaurants = () => {
+  const searchRestaurants = async () => {
     try {
-      const response = axios.get(
+      const response = await axios.get(
         "https://res.cloudinary.com/lereacteur-apollo/raw/upload/v1575242111/10w-full-stack/Scraping/restaurants.json",
         { params: { query: searchText } }
       );
       console.log("response=>>>");
+
       setRestaurantFiltered(response.data.restaurantFiltered);
     } catch (error) {
       console.log("ERREUR DE LA REQUETE AXIOS ===>", error);
@@ -93,6 +96,7 @@ export default function RestaurantsScreen() {
                   latitude: item.location.lat,
                   longitude: item.location.lng,
                   website: item.website,
+                  facebook: item.facebook,
                 });
               }}
             >
@@ -139,108 +143,93 @@ export default function RestaurantsScreen() {
 
                     <View alignItems={"center"}>
                       {item.type === "Veg Store" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#6BA363"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/veg-store.png")}
                         />
                       )}
                       {item.type === "vegetarian" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#9C4EA1"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/vegetarian.png")}
                         />
                       )}
                       {item.type === "B&B" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#4498B1"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/B-B.png")}
                         />
                       )}
                       {item.type === "veg-options" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#E17878"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/veg-options.png")}
                         />
                       )}
                       {item.type === "Catering" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#3FBBAF"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Catering.png")}
                         />
                       )}
                       {item.type === "Health Store" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#DCC253"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Health-Store.png")}
                         />
                       )}
                       {item.type === "Ice Cream" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#F16594"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/ice-cream.png")}
                         />
                       )}
                       {item.type === "vegan" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#43A047"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/vegan.png")}
                         />
                       )}
                       {item.type === "Delivery" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#8DB863"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Delivery.png")}
                         />
                       )}
                       {item.type === "Organization" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#A1579C"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Organization.png")}
                         />
                       )}
                       {item.type === "Food Truck" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#C082F6"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Food-Truck.png")}
                         />
                       )}
                       {item.type === "Other" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#608AC5"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Other.png")}
                         />
                       )}
                       {item.type === "Juice Bar" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#FBBC64"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Juice-Bar.png")}
                         />
                       )}
                       {item.type === "Professional" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#35805C"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Professional.png")}
                         />
                       )}
                       {item.type === "Bakery" && (
-                        <AntDesign
-                          name="checkcircle"
-                          size={16}
-                          color="#AC8951"
+                        <Image
+                          style={styles.iconType}
+                          source={require("../assets/Icons/png/Bakery.png")}
                         />
                       )}
                     </View>
@@ -263,7 +252,11 @@ export default function RestaurantsScreen() {
                     style={[styles.borderStyle, styles.schedulesAndPrice]}
                   >
                     <View flex={0.7} style={styles.schedulesStyle}>
-                      <Text numberOfLines={1}>Horaires</Text>
+                      {item.description ? (
+                        <Text>Component à créer</Text>
+                      ) : (
+                        <Text numberOfLines={1}>Horaires</Text>
+                      )}
                     </View>
                     <View flex={0.3} style={styles.priceStyle}>
                       <Text>{GenerateDollars(item.price)}</Text>
@@ -343,8 +336,8 @@ const styles = StyleSheet.create({
     paddingRight: 7,
   },
   iconType: {
-    width: 16,
-    height: 16,
+    width: 24,
+    height: 24,
   },
   ratingAndDistance: {
     justifyContent: "space-between",

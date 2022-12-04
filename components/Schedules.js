@@ -22,16 +22,14 @@ export default function Schedules(schedule) {
   // console.log("OpeningDays ===> ", OpeningDays);
   const openTab1 = arraySchedulesWord.slice(OpeningDays, closed);
   // console.log("openTab1 ===> ", openTab1);
-  const newTab = openTab1.join("");
+  const newTab = openTab1.join(" ");
   console.log(newTab);
 
   return schedule === undefined ? (
     <View>
-      <Text>"No schedules"</Text>
+      <Text>Pas d'horaires fournis</Text>
     </View>
   ) : (
-    <View>
-      <Text>Horaires</Text>
-    </View>
+    newTab
   );
 }

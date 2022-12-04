@@ -24,7 +24,7 @@ import {
 } from "react-native";
 //Components
 import GenerateStars from "../components/GenerateStars";
-import GenerateDollars from "../components/GenerateDollars";
+import Schedules from "../components/Schedules";
 import MainContacts from "../components/MainContacts";
 import LastContacts from "../components/LastContacts";
 //
@@ -46,6 +46,7 @@ export default function RestaurantScreen({ route, navigation }) {
   const latitude = route.params.latitude;
   const longitude = route.params.longitude;
   const website = route.params.website;
+  const facebook = route.params.facebook;
   //
   const [coords, setCoords] = useState();
   const [error, setError] = useState();
@@ -449,35 +450,25 @@ export default function RestaurantScreen({ route, navigation }) {
               >
                 <View
                   style={{
-                    flex: 0.6,
+                    flex: 0.7,
                     borderColor: "black",
                     borderWidth: 1,
                     justifyContent: "center",
                   }}
                 >
-                  <Text numberOfLines={1} style={{ color: "grey" }}>
-                    OUVERTURE
+                  <Text numberOfLines={1} style={{ color: "black" }}>
+                    {Schedules(description)}
                   </Text>
                 </View>
                 <View
                   style={{
-                    flex: 0.2,
+                    flex: 0.3,
                     borderColor: "black",
                     borderWidth: 1,
                     justifyContent: "center",
                   }}
                 >
                   <Text>Distance</Text>
-                </View>
-                <View
-                  style={{
-                    flex: 0.2,
-                    borderColor: "black",
-                    borderWidth: 1,
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text>{GenerateDollars(price)}</Text>
                 </View>
               </View>
             </View>
@@ -634,7 +625,12 @@ export default function RestaurantScreen({ route, navigation }) {
           </View>
         </View>
         <View style={styles.allContacts}>
-          <LastContacts phone={phone} />
+          <LastContacts
+            phone={phone}
+            description={description}
+            website={website}
+            facebook={facebook}
+          />
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -675,8 +671,7 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 20,
     height: heightScreen * 0.25,
-    width: widthScreen,
-    paddingHorizontal: 10,
+    width: widthScreen * 0.95,
   },
   addressStyle: {
     backgroundColor: "lightgrey",
