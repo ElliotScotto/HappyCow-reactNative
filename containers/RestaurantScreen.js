@@ -457,9 +457,15 @@ export default function RestaurantScreen({ route, navigation }) {
                     justifyContent: "center",
                   }}
                 >
-                  <Text numberOfLines={1} style={{ color: "black" }}>
-                    {Schedules(description)}
-                  </Text>
+                  {description === null || description === "null" ? (
+                    <Text numberOfLines={1} style={{ color: "black" }}>
+                      Horaires inconnus
+                    </Text>
+                  ) : (
+                    <Text numberOfLines={1} style={{ color: "black" }}>
+                      {Schedules(description)}
+                    </Text>
+                  )}
                 </View>
                 <View
                   style={{

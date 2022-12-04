@@ -272,7 +272,11 @@ export default function RestaurantsScreen() {
                       )}
                     </View>
                     <View flex={0.3} style={styles.priceStyle}>
-                      <Text>{GenerateDollars(item.price)}</Text>
+                      {item.price === null || item.price === "null" ? (
+                        <Text>Tarifs N.C</Text>
+                      ) : (
+                        <Text>{GenerateDollars(item.price)}</Text>
+                      )}
                     </View>
                   </View>
                   <View

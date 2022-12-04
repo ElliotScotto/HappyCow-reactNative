@@ -3,9 +3,11 @@ import { View, Text } from "react-native";
 export default function Schedules(schedule) {
   //   const schedules = restaurants.description;
   if (schedule === null || schedule === "null") {
-    <View>
-      <Text>Cet établissement ne possède pas de description.</Text>
-    </View>;
+    return (
+      <View>
+        <Text>Horaires inconnus</Text>
+      </View>
+    );
   } else {
     console.log("CONSOLE.LOG DE schedule ===>", schedule);
     const arraySchedulesWord = schedule.split(" ");
