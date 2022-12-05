@@ -129,6 +129,49 @@ export default function App() {
                   headerTintColor: "#fff",
                 }}
               />
+              <Stack.Screen
+                name="Favoris"
+                options={{
+                  headerTitleAlign: "center",
+                  headerTitle: () => <Header name="HappyCowLogo" />,
+                  headerStyle: { backgroundColor: "#7C49C7" },
+                }}
+              >
+                {(props) => (
+                  <FavoritesScreen
+                    {...props}
+                    setToken={setToken}
+                    setId={setId}
+                    set
+                  />
+                )}
+              </Stack.Screen>
+
+              <Stack.Screen
+                name="SignUp"
+                options={{
+                  headerTitleAlign: "left",
+                  headerTintColor: "#fff",
+                  headerTitleStyle: { fontWeight: "bold" },
+                  headerTitle: "",
+                }}
+              >
+                {() => <SignupScreen setToken={setToken} setId={setId} />}
+              </Stack.Screen>
+
+              <Stack.Screen
+                name="Login"
+                options={{
+                  headerTitleAlign: "left",
+                  headerTintColor: "#fff",
+                  headerTitleStyle: { fontWeight: "bold" },
+                  headerTitle: "",
+                }}
+              >
+                {(props) => (
+                  <LoginScreen {...props} setToken={setToken} setId={setId} />
+                )}
+              </Stack.Screen>
             </Stack.Navigator>
           )}
         </Tab.Screen>

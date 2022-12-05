@@ -88,6 +88,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -99,6 +104,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });
@@ -114,6 +124,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -125,6 +140,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });
@@ -140,6 +160,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -151,6 +176,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });
@@ -166,6 +196,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -177,6 +212,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });
@@ -192,6 +232,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -203,6 +248,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });
@@ -218,6 +268,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -229,6 +284,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });
@@ -244,6 +304,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -255,6 +320,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });
@@ -270,6 +340,11 @@ export default function RestaurantScreen({ route, navigation }) {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
+          </TouchableOpacity>
+        ),
       });
     }, [navigation]);
   }
@@ -281,6 +356,11 @@ export default function RestaurantScreen({ route, navigation }) {
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
             <Feather name="arrow-left" size={24} color="white" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+            <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
       });

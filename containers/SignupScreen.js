@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/core";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Feather } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 //import Modals
 import VegeType from "../modals/VegeType";
 import CityUser from "../modals/CityUser";
@@ -84,11 +85,26 @@ export default function SignupScreen({ setToken, setId }) {
       setErrorMessage(null);
       // console.log(response.data.token);
       // console.log(response.data.id);
-      const token = "N° de Token";
+      // const passwordUser = password;
+      // await AsyncStorage.setItem("password", passwordUser);
+
+      setId();
+      const userValues = JSON.stringify({
+        id,
+        name: username,
+        passwordUser: password,
+        mail: email,
+        city: userCity,
+        date: birthYear,
+        type: vegeType,
+      });
+      await AsyncStorage.setItem("user", userValues);
+
+      console.log("id de SignupScreen==> ", id);
+      const token = "N° de Token de SignupScreen";
       setToken(token);
-      console.log("token====>", token);
-      // setId(id);
-      // console.log("id ==> ", id);
+      console.log("token de SignupScreen====>", token);
+      console.log("userValues de SignupScreen ===> ", userValues);
     }
   };
   //
@@ -173,6 +189,7 @@ export default function SignupScreen({ setToken, setId }) {
           <View style={{ flex: 1 }}>
             <TextInput
               style={styles.customInputSignIn}
+              autoCapitalize="none"
               placeholder="Type de végé"
               onChangeText={(vegeType) => {
                 setVegeType(vegeType);

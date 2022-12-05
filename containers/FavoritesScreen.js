@@ -1,24 +1,37 @@
-import { useIsFocused } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/core";
+import { useState, useEffect } from "react";
+import { StatusBar } from "expo-status-bar";
+import { Feather } from "@expo/vector-icons";
 import {
   Text,
   View,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  StatusBar,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 //
-function FocusAwareStatusBar(props) {
-  const isFocused = useIsFocused();
-  return isFocused ? <StatusBar {...props} /> : null;
-}
 //
-export default function FavoritesScreen() {
+export default function FavoritesScreen({ token, setToken, setId }) {
+  //
   const navigation = useNavigation();
+  //
+  useEffect(() => {
+    navigation.setOptions({
+      headerStyle: { backgroundColor: "#7C49C7" },
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
+          <Feather name="arrow-left" size={24} color="white" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+  //
+  console.log("token de FavoritesScreen ===>", token);
+  //
   return (
     <View style={styles.mainContainerFavorites}>
-      <FocusAwareStatusBar barStyle="light-content" backgroundColor="#533382" />
+      <StatusBar barStyle="light-content" backgroundColor="#533382" />
       <View style={styles.welcomeSlide}>
         <Text>Slideshow</Text>
       </View>

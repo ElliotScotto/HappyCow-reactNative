@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Feather } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 import {
-  StatusBar,
   Text,
   View,
   TouchableOpacity,
@@ -22,7 +22,7 @@ const heightScreen = Dimensions.get("window").height;
 const widthScreen = Dimensions.get("window").width;
 //
 //
-export default function LoginScreen({ setToken, setId }) {
+export default function LoginScreen({ token, id }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -59,12 +59,41 @@ export default function LoginScreen({ setToken, setId }) {
       setErrorMessage(null);
       // console.log(response.data.token);
       // console.log(response.data.id);
-      const token = "N° de Token";
-      setToken(token);
-      console.log("token====>", token);
+      // const token = "N° de Token de LoginScreen";
+      // setToken(token);
+      const userLogged = await AsyncStorage.getItem("user");
+      const stored = await AsyncStorage.getItem("user", userValues);
+      const userValues = JSON.parse(stored);
+      console.log("userLogged ====>", userLogged);
+      // console.log("token de LoginScreen ====>", token);
       // setId(id);
-      // console.log("id ==> ", id);
+      // console.log("id de LoginScreen==> ", id);
+      console.log("userValues.name ===> ", userValues.name); //Elliot
+      console.log("userValues.password ===> ", userValues.passwordUser); //coucou
+      console.log("userValues.id ===> ", userValues.id); //902
+      if (
+        username !== userValues.name &&
+        password !== userValues.passwordUser
+      ) {
+        alert("L'utilisateur et le mot de passe ne correspondent pas.");
+      }
+      if (
+        username !== userValues.name &&
+        password === userValues.passwordUser
+      ) {
+        alert("le nom d'utilisateur est incorrect");
+      }
+      if (password !== userValues.passwordUser) {
+        alert("Le mot de passe est incorrect");
+      }
+      if (
+        username === userValues.name &&
+        password === userValues.passwordUser
+      ) {
+        alert("Vous êtes connecté");
+      }
     }
+    // if (userLogged.name)
   };
   //
   return (
