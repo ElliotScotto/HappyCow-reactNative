@@ -156,11 +156,10 @@ export default function App() {
               <Stack.Screen
                 name="SignUp"
                 options={{
-                  tabBarLabel: "Sign Up",
-                  headerTitleAlign: "center",
-                  headerStyle: { backgroundColor: "#7C49C7" },
+                  headerTitleAlign: "left",
                   headerTintColor: "#fff",
                   headerTitleStyle: { fontWeight: "bold" },
+                  headerTitle: "",
                 }}
               >
                 {() => <SignupScreen setToken={setToken} setId={setId} />}
@@ -169,10 +168,10 @@ export default function App() {
               <Stack.Screen
                 name="Login"
                 options={{
-                  headerTitleAlign: "center",
-                  headerStyle: { backgroundColor: "#7C49C7" },
+                  headerTitleAlign: "left",
                   headerTintColor: "#fff",
                   headerTitleStyle: { fontWeight: "bold" },
+                  headerTitle: "",
                 }}
               >
                 {() => <LoginScreen setToken={setToken} setId={setId} />}

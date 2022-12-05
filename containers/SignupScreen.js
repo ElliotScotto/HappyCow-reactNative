@@ -18,7 +18,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import Checkbox from "expo-checkbox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //
 function FocusAwareStatusBar(props) {
   const isFocused = useIsFocused();
@@ -44,6 +44,24 @@ export default function SignupScreen({ setToken, setId }) {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   //
   const navigation = useNavigation();
+  //
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitleAlign: "left",
+      headerStyle: { backgroundColor: "#7C49C7" },
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Feather name="arrow-left" size={24} color="white" />
+            <Text style={{ color: "white", fontSize: 22, fontWeight: "bold" }}>
+              HappyCow
+            </Text>
+          </View>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+  //
   //
   const handlePress = async (event) => {
     event.preventDefault();

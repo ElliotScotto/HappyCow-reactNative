@@ -9,7 +9,7 @@ export default function Schedules(schedule) {
       </View>
     );
   } else {
-    console.log("CONSOLE.LOG DE schedule ===>", schedule);
+    // console.log("CONSOLE.LOG DE schedule ===>", schedule);
     const arraySchedulesWord = schedule.split(" ");
     // console.log("arraySchedulesWord ===>", arraySchedulesWord);
     // console.log("arraySchedulesWord.length ===>", arraySchedulesWord.length);
