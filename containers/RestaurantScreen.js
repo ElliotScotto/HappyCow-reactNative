@@ -45,8 +45,7 @@ export default function RestaurantScreen({ route, navigation }) {
   const [coords, setCoords] = useState();
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  //
-  //
+  const [colorByType, setColorByType] = useState("white");
   //
   // Header go back to Restaurants
   // ALL COLORS TYPE
@@ -71,9 +70,12 @@ export default function RestaurantScreen({ route, navigation }) {
   const colorBakery = "#AC8951";
   //
   //
+  //
+  //
   //Header Style
   if (type === "Veg Store") {
     useEffect(() => {
+      setColorByType(colorVegStore);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorVegStore },
         headerLeft: () => (
@@ -92,6 +94,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "vegan") {
     useEffect(() => {
+      setColorByType(colorVeganOnly);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorVeganOnly },
         headerLeft: () => (
@@ -110,6 +113,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Other") {
     useEffect(() => {
+      setColorByType(colorOther);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorOther },
         headerLeft: () => (
@@ -128,6 +132,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Health Store") {
     useEffect(() => {
+      setColorByType(colorHealthStore);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorHealthStore },
         headerLeft: () => (
@@ -146,6 +151,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "veg-options") {
     useEffect(() => {
+      setColorByType(colorVegOptions);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorVegOptions },
         headerLeft: () => (
@@ -164,6 +170,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "vegetarian") {
     useEffect(() => {
+      setColorByType(colorVegetarian);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorVegetarian },
         headerLeft: () => (
@@ -182,6 +189,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Ice Cream") {
     useEffect(() => {
+      setColorByType(colorIceCream);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorIceCream },
         headerLeft: () => (
@@ -200,6 +208,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Catering") {
     useEffect(() => {
+      setColorByType(colorCatering);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorCatering },
         headerLeft: () => (
@@ -218,6 +227,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Delivery") {
     useEffect(() => {
+      setColorByType(colorDelivery);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorDelivery },
         headerLeft: () => (
@@ -236,6 +246,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Food Truck") {
     useEffect(() => {
+      setColorByType(colorFoodTruck);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorFoodTruck },
         headerLeft: () => (
@@ -254,6 +265,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Bakery") {
     useEffect(() => {
+      setColorByType(colorBakery);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorBakery },
         headerLeft: () => (
@@ -271,6 +283,7 @@ export default function RestaurantScreen({ route, navigation }) {
   }
   //
   if (type === "B&B") {
+    setColorByType(colorBB);
     useEffect(() => {
       navigation.setOptions({
         headerStyle: { backgroundColor: colorBB },
@@ -290,6 +303,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Juice Bar") {
     useEffect(() => {
+      setColorByType(colorJuiceBar);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorJuiceBar },
         headerLeft: () => (
@@ -308,6 +322,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Organization") {
     useEffect(() => {
+      setColorByType(colorOrganization);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorOrganization },
         headerLeft: () => (
@@ -326,6 +341,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Market Vendor") {
     useEffect(() => {
+      setColorByType(colorMarketVendor);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorMarketVendor },
         headerLeft: () => (
@@ -344,6 +360,7 @@ export default function RestaurantScreen({ route, navigation }) {
   //
   if (type === "Professional") {
     useEffect(() => {
+      setColorByType(colorProfessional);
       navigation.setOptions({
         headerStyle: { backgroundColor: colorProfessional },
         headerLeft: () => (
@@ -385,7 +402,11 @@ export default function RestaurantScreen({ route, navigation }) {
     askPermission();
   }, []);
   //
+  //
+  //Background Info Restaurant
 
+  //
+  //
   return isLoading ? ( // step 1
     <ActivityIndicator
       color={"#7C49C7"}
@@ -404,6 +425,9 @@ export default function RestaurantScreen({ route, navigation }) {
       >
         {type === "Veg Store" && (
           <StatusBar barStyle="light-content" backgroundColor="#4b6947" />
+        )}
+        {type === "vegan" && (
+          <StatusBar barStyle="light-content" backgroundColor="#1d6831" />
         )}
         {type === "vegetarian" && (
           <StatusBar barStyle="light-content" backgroundColor="#6f3271" />
@@ -477,7 +501,7 @@ export default function RestaurantScreen({ route, navigation }) {
                     />
                   </View>
                   <View width={widthScreen * 0.2}>
-                    <View style={styles.secondaryPicture}>
+                    <View style={styles.secondaryPicture} borderBottomWidth={2}>
                       <Image
                         style={styles.secondsPictures}
                         source={{ uri: pictures[1] }}
@@ -495,19 +519,17 @@ export default function RestaurantScreen({ route, navigation }) {
               )}
             </View>
           </View>
+
           <View
             style={styles.infoStyle}
             paddingTop={10}
             paddingBottom={10}
-            backgroundColor={"white"}
-            borderColor={"black"}
-            borderWidth={1}
+            backgroundColor={colorByType}
           >
             <View paddingHorizontal={10}>
               <View
                 style={{
                   height: 36,
-
                   justifyContent: "center",
                 }}
               >
@@ -516,7 +538,7 @@ export default function RestaurantScreen({ route, navigation }) {
                   style={{
                     fontSize: 20,
                     fontWeight: "500",
-
+                    color: "white",
                     width: widthScreen * 0.65,
                   }}
                 >
@@ -526,10 +548,10 @@ export default function RestaurantScreen({ route, navigation }) {
               <View
                 style={{
                   height: 28,
-
                   justifyContent: "center",
                 }}
               >
+                {console.log("RESTAURANTSCREEN : ratingvalue ===> ", rating)}
                 <Text>{GenerateStars(rating)}</Text>
               </View>
 
@@ -547,28 +569,34 @@ export default function RestaurantScreen({ route, navigation }) {
                   }}
                 >
                   {description === null || description === "null" ? (
-                    <Text numberOfLines={1} style={{ color: "black" }}>
+                    <Text numberOfLines={1} style={{ color: "white" }}>
                       Horaires inconnus
                     </Text>
                   ) : (
-                    <Text numberOfLines={1} style={{ color: "black" }}>
+                    <Text
+                      numberOfLines={1}
+                      style={{ color: "white", fontWeight: "500" }}
+                    >
                       {Schedules(description)}
                     </Text>
                   )}
                 </View>
+                <View style={{ flex: 0.1 }}></View>
                 <View
                   style={{
-                    flex: 0.3,
-
+                    flex: 0.2,
                     justifyContent: "center",
+                    paddingRight: 2,
                   }}
                 >
-                  <Text>Distance</Text>
+                  <Text style={{ color: "white", fontWeight: "500" }}>
+                    Distance
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
-          <View position={"absolute"} right={20} top={152}>
+          <View position={"absolute"} right={40} top={147}>
             {type === "Veg Store" && (
               <Image
                 style={styles.iconType}
@@ -660,6 +688,17 @@ export default function RestaurantScreen({ route, navigation }) {
               />
             )}
           </View>
+          <View position={"absolute"} right={35} top={200}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                textTransform: "uppercase",
+              }}
+            >
+              {type}
+            </Text>
+          </View>
         </View>
 
         <View
@@ -750,8 +789,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 2,
     borderRightWidth: 0,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
   },
 
   secondsPictures: {
@@ -761,8 +800,8 @@ const styles = StyleSheet.create({
   },
 
   iconType: {
-    width: 36,
-    height: 36,
+    width: 46,
+    height: 46,
   },
   infoStyle: {
     width: widthScreen,
