@@ -2,8 +2,8 @@ import restaurants from "../assets/data/restaurants.json";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Feather } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
+import { Feather, AntDesign } from "@expo/vector-icons";
+// import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
@@ -14,6 +14,7 @@ import {
   Image,
   Dimensions,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //
@@ -22,7 +23,7 @@ const heightScreen = Dimensions.get("window").height;
 const widthScreen = Dimensions.get("window").width;
 //
 //
-export default function LoginScreen({ token, id }) {
+export default function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -57,44 +58,56 @@ export default function LoginScreen({ token, id }) {
       setErrorMessage("Votre mot de passe doit contenir 6 caractères minimum");
     } else {
       setErrorMessage(null);
-      // console.log(response.data.token);
-      // console.log(response.data.id);
-      // const token = "N° de Token de LoginScreen";
-      // setToken(token);
+      //
       const userLogged = await AsyncStorage.getItem("user");
       const stored = await AsyncStorage.getItem("user", userValues);
       const userValues = JSON.parse(stored);
-      console.log("userLogged ====>", userLogged);
-      // console.log("token de LoginScreen ====>", token);
-      // setId(id);
-      // console.log("id de LoginScreen==> ", id);
-      console.log("userValues.name ===> ", userValues.name); //Elliot
-      console.log("userValues.password ===> ", userValues.passwordUser); //coucou
-      console.log("userValues.id ===> ", userValues.id); //902
-      if (
-        username !== userValues.name &&
-        password !== userValues.passwordUser
-      ) {
-        alert("L'utilisateur et le mot de passe ne correspondent pas.");
-      }
-      if (
-        username !== userValues.name &&
-        password === userValues.passwordUser
-      ) {
-        alert("le nom d'utilisateur est incorrect");
-      }
-      if (password !== userValues.passwordUser) {
-        alert("Le mot de passe est incorrect");
-      }
-      if (
-        username === userValues.name &&
-        password === userValues.passwordUser
-      ) {
-        alert("Vous êtes connecté");
-      }
+      //
+      if (userValues) {
+        console.log("LOGINSCREEN : userLogged ====>", userLogged);
+        console.log("LOGINSCREEN : userValues.id ====>", userValues.id); //908
+        console.log("LOGINSCREEN : userValues.token ====>", userValues.token); //1234567
+        console.log("LOGINSCREEN : userValues.name ===> ", userValues.name); //Elliot
+        console.log(
+          "LOGINSCREEN : userValues.password ===> ",
+          userValues.passwordUser
+        ); //coucou
+        if (
+          username !== userValues.name &&
+          password !== userValues.passwordUser
+        ) {
+          setErrorMessage(
+            "L'utilisateur et le mot de passe ne correspondent pas."
+          );
+        }
+        if (
+          username !== userValues.name &&
+          password === userValues.passwordUser
+        ) {
+          setErrorMessage("le nom d'utilisateur est incorrect");
+        }
+        if (password !== userValues.passwordUser) {
+          setErrorMessage("Le mot de passe est incorrect");
+        }
+        if (
+          username === userValues.name &&
+          password === userValues.passwordUser
+        ) {
+          alert("Bienvenue sur HappyCow ! Vous êtes connecté.");
+
+          navigation.navigate("Restaurants");
+        }
+      } else alert("Vous n'êtes pas inscrit");
     }
     // if (userLogged.name)
   };
+  //
+  //
+  const handleLogOut = async () => {
+    setToken(undefined);
+    alert("Vous êtes déconnecté.");
+  };
+  //
   //
   return (
     <KeyboardAwareScrollView>
@@ -184,10 +197,8 @@ export default function LoginScreen({ token, id }) {
             >
               <Text style={[styles.large, styles.white]}>Connexion</Text>
             </TouchableHighlight>
-            <TouchableOpacity title="ForgottenPassword">
-              <Text style={[styles.large, styles.grey]}>
-                Mot de passe oublié ?
-              </Text>
+            <TouchableOpacity title="logout" onPress={handleLogOut}>
+              <Text style={[styles.large, styles.grey]}>Se deconnecter</Text>
             </TouchableOpacity>
           </View>
         </View>

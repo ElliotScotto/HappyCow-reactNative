@@ -1,21 +1,33 @@
 import { useNavigation } from "@react-navigation/core";
 import { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { Feather } from "@expo/vector-icons";
+// import { StatusBar } from "expo-status-bar";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import {
   Text,
   View,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  StatusBar,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //
 //
-export default function FavoritesScreen({ token, setToken, setId }) {
+export default function FavoritesScreen({ userToken }) {
   //
   const navigation = useNavigation();
+  const [isLogged, setIslogged] = useState(false);
   //
+  console.log("FavoriteScreen : CONSOLE LOG DE userToken ====>", userToken);
+  //
+  // if (userToken) {
+  //   setIslogged(true);
+  // } else {
+  //   setIslogged(false);
+  // }
+
+  //
+  //Header Button
   useEffect(() => {
     navigation.setOptions({
       headerStyle: { backgroundColor: "#7C49C7" },
@@ -27,11 +39,11 @@ export default function FavoritesScreen({ token, setToken, setId }) {
     });
   }, [navigation]);
   //
-  console.log("token de FavoritesScreen ===>", token);
   //
   return (
     <View style={styles.mainContainerFavorites}>
       <StatusBar barStyle="light-content" backgroundColor="#533382" />
+
       <View style={styles.welcomeSlide}>
         <Text>Slideshow</Text>
       </View>
@@ -75,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   Btn: {
-    height: 50,
+    height: 40,
     width: 125,
     backgroundColor: "#7C49C7",
     justifyContent: "center",

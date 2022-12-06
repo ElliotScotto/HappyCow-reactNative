@@ -2,19 +2,12 @@ import Swiper from "react-native-swiper";
 import * as Location from "expo-location";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { useState, useEffect } from "react";
-import {
-  Ionicons,
-  Feather,
-  FontAwesome5,
-  MaterialCommunityIcons,
-  Entypo,
-} from "@expo/vector-icons";
+import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
 import {
   Text,
   View,
   Dimensions,
   StatusBar,
-  Platform,
   StyleSheet,
   SafeAreaView,
   Image,
@@ -407,8 +400,6 @@ export default function RestaurantScreen({ route, navigation }) {
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
-          borderWidth: 1,
-          borderColor: "black",
         }}
       >
         {type === "Veg Store" && (
@@ -478,22 +469,45 @@ export default function RestaurantScreen({ route, navigation }) {
                   <Text>No Image</Text>
                 </View>
               ) : (
-                <View>
-                  <Image
-                    style={styles.mainPicture}
-                    source={{ uri: pictures[0] }}
-                  />
+                <View flexDirection={"row"}>
+                  <View width={widthScreen * 0.8}>
+                    <Image
+                      style={styles.mainPicture}
+                      source={{ uri: pictures[0] }}
+                    />
+                  </View>
+                  <View width={widthScreen * 0.2}>
+                    <View style={styles.secondaryPicture}>
+                      <Image
+                        style={styles.secondsPictures}
+                        source={{ uri: pictures[1] }}
+                      />
+                    </View>
+
+                    <View style={styles.secondaryPicture}>
+                      <Image
+                        style={styles.secondsPictures}
+                        source={{ uri: pictures[2] }}
+                      />
+                    </View>
+                  </View>
                 </View>
               )}
             </View>
           </View>
-          <View style={styles.infoStyle}>
-            <View backgroundColor={colorBakery} paddingHorizontal={10}>
+          <View
+            style={styles.infoStyle}
+            paddingTop={10}
+            paddingBottom={10}
+            backgroundColor={"white"}
+            borderColor={"black"}
+            borderWidth={1}
+          >
+            <View paddingHorizontal={10}>
               <View
                 style={{
                   height: 36,
-                  borderColor: "black",
-                  borderWidth: 1,
+
                   justifyContent: "center",
                 }}
               >
@@ -502,8 +516,7 @@ export default function RestaurantScreen({ route, navigation }) {
                   style={{
                     fontSize: 20,
                     fontWeight: "500",
-                    borderColor: "black",
-                    borderWidth: 1,
+
                     width: widthScreen * 0.65,
                   }}
                 >
@@ -513,8 +526,7 @@ export default function RestaurantScreen({ route, navigation }) {
               <View
                 style={{
                   height: 28,
-                  borderColor: "black",
-                  borderWidth: 1,
+
                   justifyContent: "center",
                 }}
               >
@@ -525,15 +537,12 @@ export default function RestaurantScreen({ route, navigation }) {
                 style={{
                   height: 28,
                   flexDirection: "row",
-                  borderColor: "black",
-                  borderWidth: 1,
                 }}
               >
                 <View
                   style={{
                     flex: 0.7,
-                    borderColor: "black",
-                    borderWidth: 1,
+
                     justifyContent: "center",
                   }}
                 >
@@ -550,8 +559,7 @@ export default function RestaurantScreen({ route, navigation }) {
                 <View
                   style={{
                     flex: 0.3,
-                    borderColor: "black",
-                    borderWidth: 1,
+
                     justifyContent: "center",
                   }}
                 >
@@ -733,17 +741,32 @@ export default function RestaurantScreen({ route, navigation }) {
 //
 const styles = StyleSheet.create({
   mainPicture: {
-    width: widthScreen,
+    width: "100%",
     height: "100%",
     resizeMode: "cover",
   },
+  secondaryPicture: {
+    height: "50%",
+    borderColor: "white",
+    borderWidth: 2,
+    borderRightWidth: 0,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+  },
+
+  secondsPictures: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+
   iconType: {
     width: 36,
     height: 36,
   },
   infoStyle: {
     width: widthScreen,
-    marginBottom: 20,
+    marginBottom: 15,
   },
   bgVegStore: { backgroundColor: "#6BA363" },
   bgVegetarian: { backgroundColor: "#9C4EA1" },

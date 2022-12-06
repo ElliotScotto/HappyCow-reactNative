@@ -1,13 +1,16 @@
-import { useIsFocused } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/core";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Feather } from "@expo/vector-icons";
+import Checkbox from "expo-checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //import Modals
 import VegeType from "../modals/VegeType";
 import CityUser from "../modals/CityUser";
 import BirthYear from "../modals/BirthYear";
+//
+//import Components
+import Authentification from "../middleware/Authentification";
 //
 import {
   Text,
@@ -17,21 +20,18 @@ import {
   StyleSheet,
   Dimensions,
   TouchableHighlight,
+  StatusBar,
 } from "react-native";
-import Checkbox from "expo-checkbox";
+//
 import { useState, useEffect } from "react";
 //
-function FocusAwareStatusBar(props) {
-  const isFocused = useIsFocused();
-  return isFocused ? <StatusBar {...props} /> : null;
-}
 //
 
 //
 const heightScreen = Dimensions.get("window").height;
 const widthScreen = Dimensions.get("window").width;
 //
-export default function SignupScreen({ setToken, setId }) {
+export default function SignupScreen({ setToken, setId, userToken }) {
   //State Input
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -87,37 +87,46 @@ export default function SignupScreen({ setToken, setId }) {
       // console.log(response.data.id);
       // const passwordUser = password;
       // await AsyncStorage.setItem("password", passwordUser);
-
-      setId();
-      const userValues = JSON.stringify({
-        id,
-        name: username,
-        passwordUser: password,
-        mail: email,
-        city: userCity,
-        date: birthYear,
-        type: vegeType,
-      });
-      await AsyncStorage.setItem("user", userValues);
-
-      console.log("id de SignupScreen==> ", id);
-      const token = "N° de Token de SignupScreen";
-      setToken(token);
-      console.log("token de SignupScreen====>", token);
-      console.log("userValues de SignupScreen ===> ", userValues);
+      if (userToken) {
+        alert("Vous êtes déjà inscrit");
+      } else {
+        setId();
+        const token = "1234567";
+        setToken(token);
+        const userValues = JSON.stringify({
+          id,
+          token: token,
+          name: username,
+          passwordUser: password,
+          mail: email,
+          city: userCity,
+          date: birthYear,
+          type: vegeType,
+        });
+        await AsyncStorage.setItem("user", userValues);
+        console.log("SIGNUPSCREEN : token ====>", token);
+        console.log("SIGNUPSCREEN : userValues  =====> ", userValues);
+        // <Authentification password={password} />;
+        alert("Votre inscription s'est bien déroulée.");
+        navigation.navigate("Login");
+      }
     }
+  };
+  //
+  //
+  const handleRemoveItem = async () => {
+    await AsyncStorage.removeItem("user");
+    alert("Vous êtes désinscrit.");
   };
   //
   //
   return (
     <KeyboardAwareScrollView>
-      <FocusAwareStatusBar barStyle="light-content" backgroundColor="#533382" />
+      <StatusBar barStyle="light-content" backgroundColor="#533382" />
       <View
         style={{
           flex: 1,
           alignItems: "center",
-          borderColor: "black",
-          borderWidth: 1,
         }}
       >
         <View style={{ marginVertical: 30 }}>
@@ -268,6 +277,20 @@ export default function SignupScreen({ setToken, setId }) {
           <Text style={[styles.large, styles.fontColor]}>S'inscrire</Text>
         </TouchableHighlight>
       </View>
+      <View marginTop={30} flexDirection={"row"} justifyContent={"center"}>
+        <View flex={0.6}>
+          <Text></Text>
+        </View>
+        <View flex={0.3} alignItems={"center"}>
+          <TouchableOpacity
+            style={styles.button2}
+            title="log out"
+            onPress={handleRemoveItem}
+          >
+            <Text style={styles.text2}>Se désincrire</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </KeyboardAwareScrollView>
   );
 }
@@ -294,6 +317,22 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     marginBottom: 20,
+  },
+  button2: {
+    height: 30,
+    width: 130,
+    borderColor: "red",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+
+  text2: {
+    color: "red",
+    fontWeight: "500",
+    fontSize: 16,
   },
   section: {
     flexDirection: "row",

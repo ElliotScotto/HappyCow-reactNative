@@ -129,23 +129,6 @@ export default function App() {
                   headerTintColor: "#fff",
                 }}
               />
-              <Stack.Screen
-                name="Favoris"
-                options={{
-                  headerTitleAlign: "center",
-                  headerTitle: () => <Header name="HappyCowLogo" />,
-                  headerStyle: { backgroundColor: "#7C49C7" },
-                }}
-              >
-                {(props) => (
-                  <FavoritesScreen
-                    {...props}
-                    setToken={setToken}
-                    setId={setId}
-                    set
-                  />
-                )}
-              </Stack.Screen>
 
               <Stack.Screen
                 name="SignUp"
@@ -156,7 +139,13 @@ export default function App() {
                   headerTitle: "",
                 }}
               >
-                {() => <SignupScreen setToken={setToken} setId={setId} />}
+                {() => (
+                  <SignupScreen
+                    setToken={setToken}
+                    setId={setId}
+                    userId={userId}
+                  />
+                )}
               </Stack.Screen>
 
               <Stack.Screen
@@ -170,6 +159,23 @@ export default function App() {
               >
                 {(props) => (
                   <LoginScreen {...props} setToken={setToken} setId={setId} />
+                )}
+              </Stack.Screen>
+              <Stack.Screen
+                name="Favoris"
+                options={{
+                  headerTitleAlign: "center",
+                  headerTitle: () => <Header name="HappyCowLogo" />,
+                  headerStyle: { backgroundColor: "#7C49C7" },
+                }}
+              >
+                {(props) => (
+                  <FavoritesScreen
+                    {...props}
+                    setToken={setToken}
+                    setId={setId}
+                    userToken={userToken}
+                  />
                 )}
               </Stack.Screen>
             </Stack.Navigator>
@@ -189,13 +195,22 @@ export default function App() {
             <Stack.Navigator>
               <Stack.Screen
                 name="Favoris"
-                component={FavoritesScreen}
                 options={{
                   headerTitleAlign: "center",
                   headerTitle: () => <Header name="HappyCowLogo" />,
                   headerStyle: { backgroundColor: "#7C49C7" },
                 }}
-              />
+              >
+                {(props) => (
+                  <FavoritesScreen
+                    {...props}
+                    setToken={setToken}
+                    setId={setId}
+                    userToken={userToken}
+                    userId={userId}
+                  />
+                )}
+              </Stack.Screen>
               <Stack.Screen
                 name="SignUp"
                 options={{
@@ -205,7 +220,13 @@ export default function App() {
                   headerTitle: "",
                 }}
               >
-                {() => <SignupScreen setToken={setToken} setId={setId} />}
+                {() => (
+                  <SignupScreen
+                    setToken={setToken}
+                    setId={setId}
+                    userId={userId}
+                  />
+                )}
               </Stack.Screen>
 
               <Stack.Screen
