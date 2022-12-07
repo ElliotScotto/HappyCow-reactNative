@@ -35,19 +35,21 @@ function FocusAwareStatusBar(props) {
 export default function RestaurantsScreen() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState("");
-  const [restaurantFiltered, setRestaurantFiltered] = useState([]);
+  const [searchText, setSearchText] = useState(null);
+  // const [restaurantFiltered, setRestaurantFiltered] = useState([]);
   //
   // REQUETE EN COURS DE DEV !!!!!!!!!!!!!!!!!!!!!
-  const searchRestaurants = async () => {
+  const searchRestaurants = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.get(
         "https://res.cloudinary.com/lereacteur-apollo/raw/upload/v1575242111/10w-full-stack/Scraping/restaurants.json",
         { params: { query: searchText } }
       );
-      console.log("response=>>>");
+      console.log("response ====>", response);
+      console.log("response.data ====>", response.data);
 
-      setRestaurantFiltered(response.data.restaurantFiltered);
+      setSearchText(response.data);
     } catch (error) {
       console.log("ERREUR DE LA REQUETE AXIOS ===>", error);
     }
@@ -83,10 +85,12 @@ export default function RestaurantsScreen() {
       <SearchBar
         searchText={searchText}
         setSearchText={setSearchText}
-        onSubmit={searchRestaurants}
+        // onValueChange={searchRestaurants}
       />
 
-      {/* FLATLIST PAR DEFAUT SANS FILTRES */}
+      <View>
+        <Text>{searchText}</Text>
+      </View>
       <FlatList
         data={restaurants}
         keyExtractor={(item) => String(item.placeId)}
@@ -153,13 +157,14 @@ export default function RestaurantsScreen() {
                     </View>
 
                     <View alignItems={"center"}>
-                      {item.type === "Veg Store" && (
+                      {/* {item.type === "Veg Store" && (
                         <Image
                           style={styles.iconType}
                           source={require("../assets/Icons/png/veg-store.png")}
                         />
-                      )}
-                      {item.type === "vegetarian" && (
+                      )} */}
+                      <Text>{IconType(item.type)}</Text>
+                      {/* {item.type === "vegetarian" && (
                         <Image
                           style={styles.iconType}
                           source={require("../assets/Icons/png/vegetarian.png")}
@@ -242,7 +247,7 @@ export default function RestaurantsScreen() {
                           style={styles.iconType}
                           source={require("../assets/Icons/png/Bakery.png")}
                         />
-                      )}
+                      )} */}
                     </View>
                   </View>
                   <View
@@ -262,7 +267,7 @@ export default function RestaurantsScreen() {
                     flexDirection={"row"}
                     style={[styles.borderStyle, styles.schedulesAndPrice]}
                   >
-                    <View flex={0.7} style={styles.schedulesStyle}>
+                    <View flex={0.8} style={styles.schedulesStyle}>
                       {item.description ? (
                         <Text numberOfLines={1}>
                           {Schedules(restaurants[index].description)}
@@ -271,12 +276,8 @@ export default function RestaurantsScreen() {
                         <Text numberOfLines={1}>Horaires inconnus</Text>
                       )}
                     </View>
-                    <View flex={0.3} style={styles.priceStyle}>
-                      {item.price === null || item.price === "null" ? (
-                        <Text>Tarifs N.C</Text>
-                      ) : (
-                        <Text>{GenerateDollars(item.price)}</Text>
-                      )}
+                    <View flex={0.2} style={styles.priceStyle}>
+                      <Text>{GenerateDollars(item.price)}</Text>
                     </View>
                   </View>
                   <View
@@ -368,9 +369,8 @@ const styles = StyleSheet.create({
     paddingRight: 7,
   },
   schedulesAndPrice: {
-    justifyContent: "space-between",
     paddingLeft: 7,
-    paddingRight: 7,
+    paddingRight: 5,
   },
   schedulesStyle: {
     // borderColor: "black",

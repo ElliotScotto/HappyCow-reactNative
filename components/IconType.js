@@ -1,60 +1,173 @@
 import restaurants from "../assets/data/restaurants.json";
 import { StyleSheet, Image, Text, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-//import icon Type
-// import bb from "../assets/Icons/b-b.svg";
-// import bakery from "../assets/Icons/bakery.svg";
-// import catering from "../assets/Icons/catering.svg";
-// import coffeeTea from "../assets/Icons/coffee-tea.svg";
-// import delivery from "../assets/Icons/delivery.svg";
-// import farmersMarket from "../assets/Icons/farmer-s-market.svg";
-// import foodTruck from "../assets/Icons/food-truck.svg";
-// import healthStore from "../assets/Icons/health-store.svg";
-// import iceCream from "../assets/Icons/ice-cream.svg";
-// import juiceBar from "../assets/Icons/juice-bar.svg";
-// import marketVendor from "../assets/Icons/market-vendor.svg";
-// import organization from "../assets/Icons/organization.svg";
-// import other from "../assets/Icons/other.svg";
-// import spa from "../assets/Icons/spa.svg";
-// import vegOptions from "../assets/Icons/veg-options.svg";
-// import VegStore from "../assets/Icons/veg-store.png";
-// import vegProfessional from "../assets/Icons/vegan-professional.svg";
-// import vegan from "../assets/Icons/vegan.svg";
-// import vegetarian from "../assets/Icons/vegetarian.svg";
 //
-const tabIcon = [
-  <FontAwesome name="check" size={16} color="#7C49C7" key={1} />, //standard HC //veg store
-  // <FontAwesome name="check" size={16} color="#9C4EA1" key={3} />, //vegetarian
-  // <FontAwesome name="check" size={16} color="#43A047" key={4} />, //vegan
+const arrayOfType = [
+  "Veg Store",
+  "vegan",
+  "vegetarian",
+  "Health Store",
+  "Juice Bar",
+  "Professional",
+  "B&B",
+  "veg-options",
+  "Catering",
+  "Ice Cream",
+  "Delivery",
+  "Organization",
+  "Food Truck",
+  "Other",
+  "Bakery",
 ];
-const IconType = () => {
+const tabIcon = [];
+export default function IconType(type) {
+  //
+  if (arrayOfType.includes(type)) {
+    for (let i = 0; i < 1; i++) {
+      if (type === "Veg Store") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/veg-store.png")}
+          />
+        );
+      }
+      if (type === "vegan") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/vegan.png")}
+          />
+        );
+      }
+      if (type === "vegetarian") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/vegetarian.png")}
+          />
+        );
+      }
+      if (type === "veg-options") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/veg-options.png")}
+          />
+        );
+      }
+      if (type === "Catering") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Catering.png")}
+          />
+        );
+      }
+      if (type === "Health Store") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Health-Store.png")}
+          />
+        );
+      }
+      if (type === "Ice Cream") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/ice-cream.png")}
+          />
+        );
+      }
+      if (type === "Delivery") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Delivery.png")}
+          />
+        );
+      }
+      if (type === "Organization") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Organization.png")}
+          />
+        );
+      }
+      if (type === "Food Truck") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Food-Truck.png")}
+          />
+        );
+      }
+      if (type === "Other") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Other.png")}
+          />
+        );
+      }
+      if (type === "Professional") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Professional.png")}
+          />
+        );
+      }
+      if (type === "Juice Bar") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Juice-Bar.png")}
+          />
+        );
+      }
+      if (type === "Bakery") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/Bakery.png")}
+          />
+        );
+      }
+      if (type === "B&B") {
+        tabIcon.splice(0, 1);
+        tabIcon.push(
+          <Image
+            style={styles.iconType}
+            source={require("../assets/Icons/png/B-B.png")}
+          />
+        );
+      }
+    }
+  } else tabIcon.push("Unknown");
+
   return tabIcon;
-};
+}
 //
-export default IconType;
 //
 const styles = StyleSheet.create({
   iconType: {
-    width: 30,
-    height: 30,
+    width: 24,
+    height: 24,
   },
-  //   colorVegStore: "#6BA363",
-  //   colorVegetarian: "#9C4EA1",
-  //   colorVegOptions: "#E17878",
-  //   colorBB: "#4498B1",
-  //   colorCatering: "#3FBBAF",
-  //   colorCoffeeTea: "#CC8F3E",
-  //   colorDelivery: "#8DB863",
-  //   colorFarmersMarket: "#D3674F",
-  //   colorFoodTruck: "#C082F6",
-  //   colorHealthStore: "#DCC253",
-  //   colorIceCream: "#F16594",
-  //   colorJuiceBar: "#FBBC64",
-  //   colorMarketVendor: "#525CA8",
-  //   colorOrganization: "#A1579C",
-  //   colorOther: "#608AC5",
-  //   colorProfessional: "#35805C",
-  //   colorSpa: "#6BCCDC",
-  //   colorVeganOnly: "#43A047",
-  //   colorBakery: "#AC8951",
 });

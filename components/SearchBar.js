@@ -13,6 +13,7 @@ export default function SearchBar(props) {
         <View style={styles.inputSearch}>
           <TextInput
             placeholder="A proximité"
+            autoCapitalize="none"
             value={props.searchText}
             onChangeText={(text) => props.setSearchText(text)}
             onSubmitEditing={props.onSubmit}
@@ -22,6 +23,7 @@ export default function SearchBar(props) {
     </View>
   );
 }
+//
 //
 const widthScreen = Dimensions.get("window").width;
 const styles = StyleSheet.create({

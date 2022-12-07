@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 //Components
 import GenerateStars from "../components/GenerateStars";
@@ -46,6 +47,7 @@ export default function RestaurantScreen({ route, navigation }) {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [colorByType, setColorByType] = useState("white");
+  const [favorite, setFavorite] = useState(false);
   //
   // Header go back to Restaurants
   // ALL COLORS TYPE
@@ -519,9 +521,8 @@ export default function RestaurantScreen({ route, navigation }) {
               )}
             </View>
           </View>
-
           <View
-            style={styles.infoStyle}
+            style={[styles.infoStyle, styles.shadowProp]}
             paddingTop={10}
             paddingBottom={10}
             backgroundColor={colorByType}
@@ -596,7 +597,7 @@ export default function RestaurantScreen({ route, navigation }) {
               </View>
             </View>
           </View>
-          <View position={"absolute"} right={40} top={147}>
+          <View position={"absolute"} right={widthScreen * 0.09} top={147}>
             {type === "Veg Store" && (
               <Image
                 style={styles.iconType}
@@ -745,13 +746,40 @@ export default function RestaurantScreen({ route, navigation }) {
             showsUserLocation={true}
             provider={PROVIDER_GOOGLE}
           >
-            <Marker
-              coordinate={{
-                latitude: latitude,
-                longitude: longitude,
-              }}
-              title={name}
-            />
+            {Platform.OS === "ios" ? (
+              <Marker
+                coordinate={{
+                  latitude: latitude,
+                  longitude: longitude,
+                }}
+                title={name}
+              >
+                <View
+                  style={{
+                    borderColor: "#7C49C7",
+                    borderWidth: 2,
+                    borderRadius: "50%",
+                  }}
+                >
+                  <View
+                    style={{
+                      backgroundColor: colorByType,
+                      width: 20,
+                      height: 20,
+                      borderRadius: "50%",
+                    }}
+                  ></View>
+                </View>
+              </Marker>
+            ) : (
+              <Marker
+                coordinate={{
+                  latitude: latitude,
+                  longitude: longitude,
+                }}
+                title={name}
+              />
+            )}
           </MapView>
           <View style={styles.addressStyle}>
             <View
@@ -806,6 +834,13 @@ const styles = StyleSheet.create({
   infoStyle: {
     width: widthScreen,
     marginBottom: 15,
+  },
+  //ShadowProp works only for ios
+  shadowProp: {
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   bgVegStore: { backgroundColor: "#6BA363" },
   bgVegetarian: { backgroundColor: "#9C4EA1" },
