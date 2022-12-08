@@ -1,5 +1,4 @@
-import restaurants from "../assets/data/restaurants.json";
-import { StyleSheet, Image, Text, View } from "react-native";
+import { StyleSheet, Image, Text, View, Platform } from "react-native";
 //
 const arrayOfType = [
   "Veg Store",
@@ -27,6 +26,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/veg-store.png")}
           />
@@ -36,6 +36,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/vegan.png")}
           />
@@ -45,6 +46,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/vegetarian.png")}
           />
@@ -54,6 +56,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/veg-options.png")}
           />
@@ -63,6 +66,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Catering.png")}
           />
@@ -72,6 +76,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Health-Store.png")}
           />
@@ -81,6 +86,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/ice-cream.png")}
           />
@@ -90,6 +96,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Delivery.png")}
           />
@@ -99,6 +106,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Organization.png")}
           />
@@ -108,6 +116,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Food-Truck.png")}
           />
@@ -117,6 +126,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Other.png")}
           />
@@ -126,6 +136,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Professional.png")}
           />
@@ -135,6 +146,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Juice-Bar.png")}
           />
@@ -144,6 +156,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/Bakery.png")}
           />
@@ -153,6 +166,7 @@ export default function IconType(type) {
         tabIcon.splice(0, 1);
         tabIcon.push(
           <Image
+            key={i}
             style={styles.iconType}
             source={require("../assets/Icons/png/B-B.png")}
           />
@@ -160,8 +174,13 @@ export default function IconType(type) {
       }
     }
   } else tabIcon.push("Unknown");
-
-  return tabIcon;
+  {
+  }
+  return Platform.OS === "android" ? (
+    <View alignItems={"center"}>{tabIcon}</View>
+  ) : (
+    tabIcon
+  );
 }
 //
 //

@@ -552,7 +552,6 @@ export default function RestaurantScreen({ route, navigation }) {
                   justifyContent: "center",
                 }}
               >
-                {console.log("RESTAURANTSCREEN : ratingvalue ===> ", rating)}
                 <Text>{GenerateStars(rating)}</Text>
               </View>
 

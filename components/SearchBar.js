@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 //
-export default function SearchBar(props) {
+export default function SearchBar({ setSearchText }) {
   return (
     <View style={styles.mainSearchView}>
       <View style={styles.barSearch}>
@@ -14,9 +14,8 @@ export default function SearchBar(props) {
           <TextInput
             placeholder="A proximité"
             autoCapitalize="none"
-            value={props.searchText}
-            onChangeText={(text) => props.setSearchText(text)}
-            onSubmitEditing={props.onSubmit}
+            // value={searchText}
+            onChangeText={(event) => setSearchText(event)}
           />
         </View>
       </View>
