@@ -1,7 +1,6 @@
 import restaurants from "../assets/data/restaurants.json";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
-import axios from "axios";
 //Components
 import GenerateStars from "../components/GenerateStars";
 import GenerateDollars from "../components/GenerateDollars";
@@ -11,6 +10,8 @@ import Schedules from "../components/Schedules";
 // import Schedules from "../components/Schedules";
 import IconType from "../components/IconType";
 import MainPicture from "../components/MainPicture";
+import Filters from "../components/Filters";
+//
 import { Ionicons } from "@expo/vector-icons";
 import {
   Text,
@@ -20,8 +21,6 @@ import {
   FlatList,
   StatusBar,
   TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
 } from "react-native";
 
 //
@@ -29,7 +28,7 @@ import {
 export default function RestaurantsScreen() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState(null);
+  const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState("");
   //
   //
@@ -45,64 +44,41 @@ export default function RestaurantsScreen() {
     });
   }, [navigation]);
   //
-  const newRegexp = new RegExp(searchText, "i");
   //
+  const newRegexp = new RegExp(searchText, "i");
+
   const restaurantsFiltered = restaurants.filter((obj) => {
-    if (
-      obj.name.match(newRegexp) ||
-      (obj.description && obj.description.match(newRegexp))
-    ) {
-      return true;
+    if (filter) {
+      if (filter === "vegan" && obj.type.match("vegan")) {
+        return true;
+      } else if (filter === "vegetarian" && obj.type.match("vegetarian")) {
+        return true;
+      } else if (filter === "veg-options" && obj.type.match("veg-options")) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      if (
+        obj.name.match(newRegexp) ||
+        (obj.description && obj.description.match(newRegexp)) ||
+        obj.type.match(newRegexp)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
   });
+  //
   //
   //
   return (
     <View style={styles.mainContainerRestaurants}>
       <StatusBar barStyle="light-content" backgroundColor="#533382" />
       <SearchBar searchText={searchText} setSearchText={setSearchText} />
-      <View
-        flexDirection={"row"}
-        height={70}
-        justifyContent="space-evenly"
-        style={styles.filters}
-      >
-        <TouchableOpacity style={styles.btnFilters}>
-          <View borderColor={"black"} borderWidth={1} marginBottom={8}>
-            <Text>icone</Text>
-          </View>
-          <View borderColor={"green"} borderWidth={1}>
-            <Text>Vegan</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnFilters}>
-          <View borderColor={"black"} borderWidth={1} marginBottom={8}>
-            <Text>icone</Text>
-          </View>
-          <View borderColor={"green"} borderWidth={1}>
-            <Text>Vegetarian</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnFilters}>
-          <View borderColor={"black"} borderWidth={1} marginBottom={8}>
-            <Text>icone</Text>
-          </View>
-          <View borderColor={"green"} borderWidth={1}>
-            <Text numberOfLines={1}>Options végétarien</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnFilters}>
-          <View borderColor={"black"} borderWidth={1} marginBottom={8}>
-            <Text>icone</Text>
-          </View>
-          <View borderColor={"green"} borderWidth={1}>
-            <Text>Filtres</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
+      <Filters filter={filter} setFilter={setFilter} />
+      {console.log("console.log du state filter ===> ", filter)}
       <FlatList
         data={restaurantsFiltered}
         keyExtractor={(item) => String(item.placeId)}
@@ -208,6 +184,7 @@ const widthScreen = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   mainContainerRestaurants: {
     width: widthScreen,
+    backgroundColor: "#ffffff",
   },
   restaurant: {
     height: heightScreen / 7, //on affiche 7 annonces par page avant de scroller, (6 en comptant le header)
@@ -215,14 +192,37 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 100,
   },
-  filters: {},
+  filters: {
+    flexDirection: "row",
+    height: 80,
+    justifyContent: "space-evenly",
+    paddingTop: 6,
+    paddingBottom: 10,
+    // borderColor: "black",
+    // borderWidth: 1,
+    backgroundColor: "#f1f1f1",
+    marginBottom: 5,
+  },
+  textFilter: { fontWeight: "500" },
   btnFilters: {
-    borderColor: "blue",
-    borderWidth: 1,
+    // borderColor: "blue",
+    // borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: widthScreen * 0.23,
+    width: widthScreen * 0.22,
     borderRadius: 10,
+    backgroundColor: "#ffffff",
+  },
+  iconType: {
+    width: 24,
+    height: 24,
+  },
+  //ShadowProp works only for ios vvv
+  shadowFilter: {
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   borderStyle2: {
     marginTop: 7,
