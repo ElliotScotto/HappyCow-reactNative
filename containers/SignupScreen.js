@@ -94,7 +94,6 @@ export default function SignupScreen({ setToken, setId, userToken }) {
         const token = "1234567";
         setToken(token);
         const userValues = JSON.stringify({
-          id,
           token: token,
           name: username,
           passwordUser: password,

@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
 import { useState, useEffect } from "react";
-// import { StatusBar } from "expo-status-bar";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -14,9 +14,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 //
 //
 export default function FavoritesScreen({ userToken }) {
-  //
+  const route = useRoute();
   const navigation = useNavigation();
   const [isLogged, setIslogged] = useState(false);
+  //
   //
   console.log("FavoriteScreen : CONSOLE LOG DE userToken ====>", userToken);
   //
@@ -40,12 +41,39 @@ export default function FavoritesScreen({ userToken }) {
   }, [navigation]);
   //
   //
-  return (
+  return !userToken ? (
     <View style={styles.mainContainerFavorites}>
       <StatusBar barStyle="light-content" backgroundColor="#533382" />
 
       <View style={styles.welcomeSlide}>
-        <Text>Slideshow</Text>
+        <Text>Vous n'êtes pas connecté</Text>
+      </View>
+
+      <View style={styles.Btns}>
+        <TouchableOpacity
+          style={styles.Btn}
+          onPress={() => {
+            navigation.navigate("SignUp");
+          }}
+        >
+          <Text style={styles.fontBtn}>S'inscrire</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.Btn}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
+          <Text style={styles.fontBtn}>Connexion</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  ) : (
+    <View style={styles.mainContainerFavorites}>
+      <StatusBar barStyle="light-content" backgroundColor="#533382" />
+
+      <View style={styles.welcomeSlide}>
+        <Text>restaurant favoris : {route.params.name}</Text>
       </View>
 
       <View style={styles.Btns}>
@@ -82,8 +110,6 @@ const styles = StyleSheet.create({
   Btns: {
     width: widthScreen * 0.9,
     flexDirection: "row",
-    borderColor: "black",
-    borderWidth: 1,
     justifyContent: "space-evenly",
   },
   Btn: {

@@ -86,7 +86,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.push("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -105,7 +107,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -124,7 +128,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -143,7 +149,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -162,7 +170,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -181,7 +191,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -200,7 +212,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -219,7 +233,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -238,7 +254,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -257,7 +275,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -276,7 +296,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -295,7 +317,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -314,7 +338,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -333,7 +359,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -352,7 +380,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
@@ -371,7 +401,9 @@ export default function RestaurantScreen({ route, navigation }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate("Favoris")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Favoris", { name })}
+          >
             <Entypo name="star-outlined" size={24} color="white" />
           </TouchableOpacity>
         ),
