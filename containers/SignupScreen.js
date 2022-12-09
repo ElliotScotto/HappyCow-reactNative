@@ -107,7 +107,7 @@ export default function SignupScreen({ setToken, setId, userToken }) {
         console.log("SIGNUPSCREEN : userValues  =====> ", userValues);
         // <Authentification password={password} />;
         alert("Votre inscription s'est bien déroulée.");
-        navigation.navigate("Login");
+        navigation.navigate("Login", { token });
       }
     }
   };

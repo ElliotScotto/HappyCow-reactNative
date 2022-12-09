@@ -21,12 +21,6 @@ export default function FavoritesScreen({ userToken }) {
   //
   console.log("FavoriteScreen : CONSOLE LOG DE userToken ====>", userToken);
   //
-  // if (userToken) {
-  //   setIslogged(true);
-  // } else {
-  //   setIslogged(false);
-  // }
-
   //
   //Header Button
   useEffect(() => {
@@ -73,7 +67,7 @@ export default function FavoritesScreen({ userToken }) {
       <StatusBar barStyle="light-content" backgroundColor="#533382" />
 
       <View style={styles.welcomeSlide}>
-        <Text>restaurant favoris : {route.params.name}</Text>
+        <Text>restaurant favori : {route.params.name}</Text>
       </View>
 
       <View style={styles.Btns}>
